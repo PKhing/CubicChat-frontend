@@ -4,7 +4,7 @@ import { palette } from './palette'
 
 export const { styled, keyframes, getCssText, config } =
   Stitches.createStitches({
-    prefix: 'sme-coop',
+    prefix: 'cubic-chat',
     theme: {
       colors: {
         ...palette,
