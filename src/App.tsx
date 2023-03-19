@@ -1,6 +1,7 @@
 import './App.css'
 
 import Button from 'common/components/Button'
+import Typography from 'common/components/Typography'
 import { styled } from 'config/theme'
 import React, { useState } from 'react'
 import { BsDice5 } from 'react-icons/bs'
@@ -22,6 +23,9 @@ function App() {
     <div className="App">
       <Button icon={BsDice5} />
       <Button label="Hello" icon={BsDice5} />
+      <Typography variant="h5" color="primary700">
+        Hello
+      </Typography>
       <div>
         <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
           <img src={viteLogo} className="logo" alt="Vite logo" />

@@ -29,7 +29,7 @@ const red = {
   red: '#EB5757',
 }
 
-export const paletteTheme = {
+export const palette = {
   ...primary,
   ...gray,
   ...red,
