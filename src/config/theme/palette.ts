@@ -7,6 +7,7 @@ const primary = {
   primary600: '#5FAF7C',
   primary700: '#47835D',
   primary800: '#30583E',
+  primary850: '#223E2C',
   primary900: '#182C1F',
 }
 
@@ -29,7 +30,7 @@ const red = {
   red: '#EB5757',
 }
 
-export const paletteTheme = {
+export const palette = {
   ...primary,
   ...gray,
   ...red,

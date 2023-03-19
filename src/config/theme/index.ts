@@ -1,13 +1,13 @@
 import * as Stitches from '@stitches/react'
 
-import { paletteTheme } from './palette'
+import { palette } from './palette'
 
 export const { styled, keyframes, getCssText, config } =
   Stitches.createStitches({
-    prefix: 'sme-coop',
+    prefix: 'cubic-chat',
     theme: {
       colors: {
-        ...paletteTheme,
+        ...palette,
       },
       fontSizes: {
         60: '3.75rem',
