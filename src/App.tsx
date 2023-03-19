@@ -1,7 +1,7 @@
 import './App.css'
 
 import { styled } from 'config/theme'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import viteLogo from '/vite.svg'
 
