@@ -75,6 +75,15 @@ export const StyledTypography = styled('div', {
           fontSize: '$10',
         },
       },
+
+      caption: {
+        fontSize: '$10',
+        lineHeight: '20px',
+        fontWeight: 500,
+        '@md': {
+          fontSize: '$10',
+        },
+      },
     },
   },
 
