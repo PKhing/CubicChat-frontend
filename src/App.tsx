@@ -1,6 +1,7 @@
 import './App.css'
 
 import Button from 'common/components/Button'
+import TextField from 'common/components/TextField'
 import Typography from 'common/components/Typography'
 import { styled } from 'config/theme'
 import React, { useState } from 'react'
@@ -26,6 +27,7 @@ function App() {
       <Typography variant="h5" color="primary700">
         Hello
       </Typography>
+      <TextField label="Hello" placeholder="Hello" helperText="Hello" />
       <div>
         <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
           <img src={viteLogo} className="logo" alt="Vite logo" />

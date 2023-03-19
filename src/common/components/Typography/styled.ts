@@ -31,6 +31,7 @@ export const StyledTypography = styled('div', {
 
       h4: {
         fontSize: '$24',
+        lineHeight: '36px',
         fontWeight: 700,
         '@md': {
           fontSize: '$20',
@@ -39,6 +40,7 @@ export const StyledTypography = styled('div', {
 
       h5: {
         fontSize: '$20',
+        lineHeight: '24px',
         fontWeight: 600,
         '@md': {
           fontSize: '$18',
@@ -47,6 +49,7 @@ export const StyledTypography = styled('div', {
 
       h6: {
         fontSize: '$14',
+        lineHeight: '24px',
         fontWeight: 500,
       },
 
