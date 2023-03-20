@@ -1,4 +1,4 @@
-import { styled } from '@stitches/react'
+import { styled } from 'config/theme'
 
 export const ProfileContainer = styled('div', {
   display: 'flex',
