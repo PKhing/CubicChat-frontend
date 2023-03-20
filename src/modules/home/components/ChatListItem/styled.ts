@@ -6,4 +6,7 @@ export const ItemContainer = styled('div', {
   alignItems: 'center',
   backgroundColor: '$primary800',
   paddingRight: '10px',
+  '@md': {
+    paddingRight: '5px',
+  },
 })

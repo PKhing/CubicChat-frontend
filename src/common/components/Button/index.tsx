@@ -6,7 +6,7 @@ import { ButtonProps } from './types'
 const Button = ({ label, icon: Icon, ...rest }: ButtonProps) => {
   return (
     <StyledButton {...rest} onlyIcon={!label}>
-      {Icon && <Icon size={24} />}
+      {Icon && <Icon style={{ fontSize: '24px' }} />}
       {label}
     </StyledButton>
   )

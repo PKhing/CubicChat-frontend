@@ -8,4 +8,8 @@ export const ProfileContainer = styled('div', {
 export const ProfileImage = styled('img', {
   height: '60px',
   width: '60px',
+  '@md': {
+    height: '40px',
+    width: '40px',
+  },
 })
