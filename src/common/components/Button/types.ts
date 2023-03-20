@@ -1,7 +1,8 @@
 import { IconType } from 'react-icons'
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+import { StyledButton } from './styled'
+
+export interface ButtonProps extends React.ComponentProps<typeof StyledButton> {
   label?: string
   icon?: IconType
   fullWidth?: boolean
