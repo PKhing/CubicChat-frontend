@@ -14,6 +14,7 @@ export const StyledButton = styled('button', {
   gap: '10px',
   alignItems: 'center',
   justifyContent: 'center',
+  cursor: 'pointer',
 
   '&:focus': {
     outline: 'none',

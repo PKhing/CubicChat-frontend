@@ -1,7 +1,14 @@
 import React from 'react'
 
+import Profile from './components/Profile'
+import { PageContainer } from './styled'
+
 const Home = () => {
-  return <div>home</div>
+  return (
+    <PageContainer>
+      <Profile />
+    </PageContainer>
+  )
 }
 
 export default Home
