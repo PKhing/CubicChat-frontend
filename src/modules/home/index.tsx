@@ -1,6 +1,7 @@
 import Button from 'common/components/Button'
 import TextField from 'common/components/TextField'
 import useResponsive from 'common/hooks/useResponsive'
+import Chat from 'modules/chat'
 import React from 'react'
 import { BsPlusSquare, BsSearch } from 'react-icons/bs'
 
@@ -14,6 +15,8 @@ const Home = () => {
   const { isMobile } = useResponsive()
 
   const [currentTab, setTab] = React.useState<TabType>(TabType.USER)
+
+  return <Chat />
   return (
     <PageContainer>
       <Profile />
