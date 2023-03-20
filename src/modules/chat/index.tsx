@@ -1,15 +1,19 @@
 import Typography from 'common/components/Typography'
 import React from 'react'
 
-import { TitleContainer } from './styled'
+import ChatBox from './components/ChatBox'
+import ChatInput from './components/ChatInput'
+import { PageContainer, TitleContainer } from './styled'
 
 const Chat = () => {
   return (
-    <div>
+    <PageContainer>
       <TitleContainer>
         <Typography variant="h3">Genshin Impact</Typography>
       </TitleContainer>
-    </div>
+      <ChatBox />
+      <ChatInput />
+    </PageContainer>
   )
 }
 
