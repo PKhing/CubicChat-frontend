@@ -1,12 +1,14 @@
-import Typography from 'common/components/Typography'
 import React from 'react'
 
+import ChatItem from '../ChatItem'
 import { ChatBoxContainer } from './styled'
 
 const ChatBox = () => {
   return (
     <ChatBoxContainer>
-      <Typography>Chat Box</Typography>
+      <ChatItem />
+      <ChatItem />
+      <ChatItem />
     </ChatBoxContainer>
   )
 }

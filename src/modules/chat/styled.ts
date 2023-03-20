@@ -3,7 +3,7 @@ import { styled } from 'config/theme'
 export const PageContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  minHeight: '100vh',
+  height: '100vh',
 })
 
 export const TitleContainer = styled('div', {
