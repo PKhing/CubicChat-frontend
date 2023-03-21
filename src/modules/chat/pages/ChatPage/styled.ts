@@ -10,5 +10,9 @@ export const PageContainer = styled('div', {
 export const TitleContainer = styled('div', {
   display: 'flex',
   padding: '10px 15px',
+  gap: '5px',
   borderBottom: '$primary700 solid 1px',
+  '@md': {
+    padding: '10px',
+  },
 })

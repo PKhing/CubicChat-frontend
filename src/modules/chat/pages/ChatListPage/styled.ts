@@ -7,6 +7,12 @@ export const PageContainer = styled('div', {
   gap: '20px',
   maxHeight: '100vh',
   boxSizing: 'border-box',
+  borderRight: '1px solid $primary600',
+  maxWidth: '380px',
+  '@md': {
+    borderRight: 'none',
+    maxWidth: '100%',
+  },
 })
 
 export const TextFieldContainer = styled('div', {
