@@ -1,5 +1,6 @@
 import * as Stitches from '@stitches/react'
 
+import { media } from './media'
 import { palette } from './palette'
 
 export const { styled, keyframes, getCssText, config } =
@@ -29,14 +30,7 @@ export const { styled, keyframes, getCssText, config } =
         loopless: "'Poppins', 'Prompt', sans-serif",
       },
     },
-
-    media: {
-      xs: '(max-width: 360px)',
-      sm: '(max-width: 496px)',
-      md: '(max-width: 768px)',
-      lg: '(max-width: 960px)',
-      xl: '(max-width: 1280px)',
-    },
+    media,
   })
 
 export type CSS = Stitches.CSS<typeof config>

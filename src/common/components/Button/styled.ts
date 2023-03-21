@@ -4,6 +4,12 @@ export const StyledButton = styled('button', {
   fontFamily: '$loopless',
   fontSize: '$18',
   lineHeight: '$24',
+
+  '@md': {
+    fontSize: '$14',
+    lineHeight: '$20',
+  },
+
   fontWeight: 500,
   padding: '5px 10px',
   outline: 'none',
@@ -14,6 +20,7 @@ export const StyledButton = styled('button', {
   gap: '10px',
   alignItems: 'center',
   justifyContent: 'center',
+  cursor: 'pointer',
 
   '&:focus': {
     outline: 'none',

@@ -4,8 +4,9 @@ export const TextFieldContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '3px',
-  alignItems: 'flex-start',
+  alignItems: 'stretch',
   width: '100%',
+  boxSizing: 'border-box',
 })
 
 export const StyledTextField = styled('input', {
@@ -15,7 +16,10 @@ export const StyledTextField = styled('input', {
   color: '$primary200',
   border: 'none',
   padding: '5px 10px',
-  width: '100%',
+
+  '@md': {
+    fontSize: '$14',
+  },
 
   '&:focus': {
     outline: 'none',

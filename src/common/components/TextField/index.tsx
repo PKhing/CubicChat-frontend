@@ -7,11 +7,11 @@ import { TextFieldProps } from './types'
 const TextField = ({ label, placeholder, helperText }: TextFieldProps) => {
   return (
     <TextFieldContainer>
-      <Typography variant="h5" color="primary200">
+      <Typography variant="h5" color="primary200" css={{ textAlign: 'left' }}>
         {label}
       </Typography>
       <StyledTextField type="text" placeholder={placeholder} />
-      <Typography variant="subtitle2" color="red">
+      <Typography variant="subtitle2" color="red" css={{ textAlign: 'left' }}>
         {helperText}
       </Typography>
     </TextFieldContainer>
