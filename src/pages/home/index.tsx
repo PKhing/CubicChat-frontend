@@ -1,5 +1,6 @@
 import { useChat } from 'common/context/ChatContext'
 import useResponsive from 'common/hooks/useResponsive'
+import ChatNotFound from 'modules/chat/components/ChatNotFound'
 import ChatListPage from 'modules/chat/pages/ChatListPage'
 import ChatPage from 'modules/chat/pages/ChatPage'
 import React from 'react'
@@ -15,7 +16,7 @@ const Home = () => {
   return (
     <div style={{ display: 'flex' }}>
       <ChatListPage />
-      <ChatPage />
+      {isChatOpen ? <ChatPage /> : <ChatNotFound />}
     </div>
   )
 }
