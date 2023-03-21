@@ -1,5 +1,5 @@
 import Typography from 'common/components/Typography'
-import { ProfileImage } from 'modules/home/components/Profile/styled'
+import { ProfileImage } from 'modules/profile/components/Profile/styled'
 import React from 'react'
 
 import {

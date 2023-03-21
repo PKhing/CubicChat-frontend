@@ -1,11 +1,11 @@
 import Typography from 'common/components/Typography'
 import React from 'react'
 
-import ChatBox from './components/ChatBox'
-import ChatInput from './components/ChatInput'
+import ChatBox from '../../components/ChatBox'
+import ChatInput from '../../components/ChatInput'
 import { PageContainer, TitleContainer } from './styled'
 
-const Chat = () => {
+const ChatPage = () => {
   return (
     <PageContainer>
       <TitleContainer>
@@ -17,4 +17,4 @@ const Chat = () => {
   )
 }
 
-export default Chat
+export default ChatPage

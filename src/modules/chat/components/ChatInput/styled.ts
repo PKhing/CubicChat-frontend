@@ -1,17 +1,17 @@
-import { styled } from "config/theme";
+import { styled } from 'config/theme'
 
-export const ChatInputContainer = styled('div',{
+export const ChatInputContainer = styled('div', {
   borderTop: '1px solid $primary600',
   display: 'flex',
-  height:'120px',
+  height: '120px',
   alignItems: 'flex-end',
 })
 
-export const ButtonContainer = styled('div',{
+export const ButtonContainer = styled('div', {
   display: 'flex',
-  justifyContent:'flex-end',
+  justifyContent: 'flex-end',
   gap: '10px',
-  padding:'10px'
+  padding: '10px',
 })
 
 export const StyledTextArea = styled('textarea', {
@@ -23,7 +23,7 @@ export const StyledTextArea = styled('textarea', {
   padding: '5px 10px',
   resize: 'none',
   backgroundColor: '$primary900',
-  flexGrow:1,
+  flexGrow: 1,
 
   '@md': {
     fontSize: '$14',

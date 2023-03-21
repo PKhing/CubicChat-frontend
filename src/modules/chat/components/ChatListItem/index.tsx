@@ -1,8 +1,8 @@
 import Button from 'common/components/Button'
 import Typography from 'common/components/Typography'
+import { ProfileImage } from 'modules/profile/components/Profile/styled'
 import React from 'react'
 
-import { ProfileImage } from '../Profile/styled'
 import { ItemContainer } from './styled'
 
 const ChatListItem = () => {

@@ -7,10 +7,10 @@ import { ButtonContainer, ChatInputContainer, StyledTextArea } from './styled'
 const ChatInput = () => {
   return (
     <ChatInputContainer>
-      <StyledTextArea placeholder='Start typing...'/>
+      <StyledTextArea placeholder="Start typing..." />
       <ButtonContainer>
-        <Button icon={BsSticky} css={{backgroundColor:'$primary800'}}/>
-        <Button icon={BsSend} css={{backgroundColor:'$primary800'}}/>
+        <Button icon={BsSticky} css={{ backgroundColor: '$primary800' }} />
+        <Button icon={BsSend} css={{ backgroundColor: '$primary800' }} />
       </ButtonContainer>
     </ChatInputContainer>
   )
