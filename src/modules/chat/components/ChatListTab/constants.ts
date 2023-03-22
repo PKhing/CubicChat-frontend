@@ -1,4 +1,5 @@
-import { TabType } from 'modules/home/constants'
+
+import { TabType } from 'modules/chat/pages/ChatListPage/constants'
 import { IconType } from 'react-icons'
 import { BsChatSquareDots, BsPeople, BsPerson } from 'react-icons/bs'
 

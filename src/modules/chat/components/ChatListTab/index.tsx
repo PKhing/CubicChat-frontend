@@ -1,5 +1,5 @@
 import Button from 'common/components/Button'
-import { TabType } from 'modules/home/constants'
+import { TabType } from 'modules/chat/pages/ChatListPage/constants'
 import React from 'react'
 
 import { ICON, LABEL } from './constants'
