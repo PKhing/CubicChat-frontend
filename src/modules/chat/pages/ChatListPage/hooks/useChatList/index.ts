@@ -1,24 +1,23 @@
-import { ChatRoom, ChatRoomType } from 'common/types/base'
-import { GetChatListDto } from 'common/types/dtos/chat'
-import { useEffect, useState } from 'react'
+import { useChat } from 'common/context/ChatContext'
+import { IChatListItem } from 'modules/chat/components/ChatListItem/types'
+import { useCallback, useEffect, useState } from 'react'
 
 import { TabType } from '../../constants'
 
-const getRandomRoom = (type?: ChatRoomType) => {
+// ignore this just mocking
+const getRandomItem = (type?: TabType) => {
   const random = Math.floor(Math.random() * 100000)
-  if (!type) {
-    type = random % 2 === 0 ? ChatRoomType.DM : ChatRoomType.GROUP
-  }
+  if (type === TabType.RECENT)
+    type = Math.random() > 0.5 ? TabType.GROUP : TabType.USER
 
   const name = `${type} ${random}`
   const imageUrl =
-    type == ChatRoomType.DM
+    type == TabType.USER
       ? `https://picsum.photos/300/300?random=${random}`
       : undefined
 
   return {
-    chatId: random.toString(),
-    type,
+    id: random.toString(),
     name,
     imageUrl,
   }
@@ -26,26 +25,55 @@ const getRandomRoom = (type?: ChatRoomType) => {
 
 const useChatList = () => {
   const [currentTab, setTab] = useState<TabType>(TabType.USER)
-  const [chatRooms, setChatRooms] = useState<ChatRoom[]>([])
+  const [chatListItems, setChatListItems] = useState<IChatListItem[]>([])
+  const { openChat } = useChat()
 
   useEffect(() => {
     // TODO: fetch chat rooms
-    const res: GetChatListDto = {
-      chatRooms: Array.from({ length: 10 }).map(() => {
-        return getRandomRoom(
-          currentTab === TabType.USER
-            ? ChatRoomType.DM
-            : currentTab === TabType.GROUP
-            ? ChatRoomType.GROUP
-            : undefined,
-        )
-      }),
-    }
 
-    setChatRooms(res.chatRooms)
+    // ignore this just mocking
+    const MOCK_CHAT_ITEMS: IChatListItem[] = Array.from({ length: 10 }).map(
+      () => {
+        return getRandomItem(currentTab)
+      },
+    )
+
+    setChatListItems(MOCK_CHAT_ITEMS)
   }, [currentTab])
 
-  return { currentTab, setTab, chatRooms }
+  const handleJoinGroup = useCallback(
+    (chatId: string) => {
+      // TODO: Call API
+      alert(`Joined ${chatId} !`)
+
+      openChat(chatId)
+    },
+    [openChat],
+  )
+
+  const handleStartDm = useCallback(
+    (userId: string) => {
+      // TODO: Call API and get chat id from response
+      alert(`Chat ${userId}`)
+
+      const CHAT_ID = String(Math.floor(Math.random() * 100000))
+      openChat(CHAT_ID)
+    },
+    [openChat],
+  )
+
+  const handlers = {
+    [TabType.GROUP]: handleJoinGroup,
+    [TabType.USER]: handleStartDm,
+    [TabType.RECENT]: openChat,
+  }
+
+  return {
+    currentTab,
+    setTab,
+    chatListItems,
+    handleClick: handlers[currentTab],
+  }
 }
 
 export default useChatList
