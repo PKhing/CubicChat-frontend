@@ -8,7 +8,7 @@ const ProfileImage = ({ src, name, css }: ProfileImageProps) => {
   if (!src)
     return (
       <ProfileContainer css={css}>
-        <Typography variant="h3">{name[0]}</Typography>
+        <Typography variant="h3">{name[0].toUpperCase()}</Typography>
       </ProfileContainer>
     )
   return <StyledProfileImage src={src} css={css} />

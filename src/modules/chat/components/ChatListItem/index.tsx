@@ -5,15 +5,18 @@ import ProfileImage from 'modules/profile/components/ProfileImage'
 import React from 'react'
 
 import { ItemContainer } from './styled'
+import { ChatListItemProps } from './types'
 
-const ChatListItem = () => {
+const ChatListItem = ({ chatRoom }: ChatListItemProps) => {
+  const { name, imageUrl } = chatRoom
+
   const { openChat } = useChat()
 
   return (
     <ItemContainer>
-      <ProfileImage name="Genshin Impact" />
+      <ProfileImage name={name} src={imageUrl} />
       <Typography variant="h5" css={{ flexGrow: 1, textAlign: 'left' }}>
-        Genshin Impact
+        {name}
       </Typography>
       <Button
         label="Join"

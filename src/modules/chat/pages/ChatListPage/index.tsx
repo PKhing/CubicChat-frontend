@@ -7,13 +7,12 @@ import Profile from 'modules/profile/components/Profile'
 import React from 'react'
 import { BsPlusSquare, BsSearch } from 'react-icons/bs'
 
-import { TabType } from './constants'
+import useChatList from './hooks/useChatList'
 import { ChatListContainer, PageContainer, TextFieldContainer } from './styled'
 
 const ChatListPage = () => {
   const { isMobile } = useResponsive()
-
-  const [currentTab, setTab] = React.useState<TabType>(TabType.USER)
+  const { currentTab, setTab, chatRooms } = useChatList()
 
   return (
     <PageContainer>
@@ -25,15 +24,9 @@ const ChatListPage = () => {
       </TextFieldContainer>
       <ChatListTab currentTab={currentTab} setTab={setTab} />
       <ChatListContainer>
-        <ChatListItem />
-        <ChatListItem />
-        <ChatListItem />
-        <ChatListItem />
-        <ChatListItem />
-        <ChatListItem />
-        <ChatListItem />
-        <ChatListItem />
-        <ChatListItem />
+        {chatRooms.map((chatRoom) => (
+          <ChatListItem key={chatRoom.chatId} chatRoom={chatRoom} />
+        ))}
       </ChatListContainer>
     </PageContainer>
   )
