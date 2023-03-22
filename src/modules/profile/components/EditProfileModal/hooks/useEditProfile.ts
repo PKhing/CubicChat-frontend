@@ -1,8 +1,10 @@
+import { useUser } from 'common/context/UserContext'
 import { ChangeEvent, useCallback, useState } from 'react'
 
 const useEditProfile = (onClose: () => void) => {
   const [username, setUsername] = useState<string>('')
   const [profileImageUrl, setProfileImageUrl] = useState<string>('')
+  const { refetch } = useUser()
 
   const handleUsernameChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,10 +20,12 @@ const useEditProfile = (onClose: () => void) => {
   }, [])
 
   const handleSubmit = useCallback(() => {
-    // TODO: Implement submit & refetch information
+    // TODO: Implement submit
     alert('Submitted')
+
+    refetch()
     onClose()
-  }, [onClose])
+  }, [onClose, refetch])
 
   return {
     username,
