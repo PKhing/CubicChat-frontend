@@ -3,6 +3,7 @@ import Typography from 'common/components/Typography'
 import React from 'react'
 import { BsBoxArrowRight, BsPencilSquare } from 'react-icons/bs'
 
+import EditProfileModal from '../EditProfileModal'
 import { ProfileContainer, ProfileImage } from './styled'
 
 const Profile = () => {
@@ -20,6 +21,7 @@ const Profile = () => {
       </Typography>
       <Button variant="text" icon={BsPencilSquare} />
       <Button variant="text" icon={BsBoxArrowRight} />
+      <EditProfileModal />
     </ProfileContainer>
   )
 }
