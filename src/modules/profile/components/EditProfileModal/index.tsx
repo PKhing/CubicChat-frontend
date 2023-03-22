@@ -21,16 +21,20 @@ const EditProfileModal = () => {
           <Typography variant="h3" css={{ textAlign: 'center' }}>
             Edit Profile
           </Typography>
-          <FormContainer>
-            <ProfileImage src="https://popcat.click/twitter-card.jpg" />
-            <div>
+          <div>
+            <FormContainer>
+              <ProfileImage src="https://popcat.click/twitter-card.jpg" />
               <TextField label="Nickname" />
-              <ButtonContainer>
-                <Button label="Random Profile" icon={BsDice5} />
-                <Button label="Save" icon={BsCheck2Square} />
-              </ButtonContainer>
-            </div>
-          </FormContainer>
+            </FormContainer>
+            <ButtonContainer>
+              <Button label="Random Profile" icon={BsDice5} />
+              <Button
+                label="Save"
+                icon={BsCheck2Square}
+                css={{ flexGrow: 1 }}
+              />
+            </ButtonContainer>
+          </div>
         </ModalContent>
       </ModalContainer>
     </Portal>
