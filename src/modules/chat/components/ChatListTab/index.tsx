@@ -2,14 +2,14 @@ import Button from 'common/components/Button'
 import { TabType } from 'modules/chat/pages/ChatListPage/constants'
 import React from 'react'
 
-import { ICON, LABEL } from './constants'
+import { ICON, LABEL, TABS } from './constants'
 import { TabContainer } from './styled'
 import { ChatListTabProps } from './types'
 
 const ChatListTab = ({ currentTab, setTab }: ChatListTabProps) => {
   return (
     <TabContainer>
-      {Object.keys(TabType).map((tab) => (
+      {TABS.map((tab) => (
         <Button
           key={tab}
           label={LABEL[tab as TabType]}
