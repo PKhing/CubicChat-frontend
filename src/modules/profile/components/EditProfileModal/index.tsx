@@ -12,12 +12,15 @@ import {
   ModalContainer,
   ModalContent,
 } from './styled'
+import { EditProfileModalProps } from './types'
 
-const EditProfileModal = () => {
+const EditProfileModal = ({ isOpen, onClose }: EditProfileModalProps) => {
+  if (!isOpen) return null
+
   return (
     <Portal>
-      <ModalContainer>
-        <ModalContent>
+      <ModalContainer onClick={onClose}>
+        <ModalContent onClick={(e) => e.stopPropagation()}>
           <Typography variant="h3" css={{ textAlign: 'center' }}>
             Edit Profile
           </Typography>
