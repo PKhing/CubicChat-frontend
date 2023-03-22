@@ -16,6 +16,14 @@ export const ModalContent = styled('div', {
   backgroundColor: '$primary900',
   padding: '30px',
   paddingTop: '15px',
+  boxSizing: 'border-box',
+  width: '400px',
+
+  '@md': {
+    padding: '15px',
+    width: '90%',
+    maxWidth: '400px',
+  },
 })
 
 export const FormContainer = styled('div', {
@@ -28,4 +36,8 @@ export const ButtonContainer = styled('div', {
   display: 'flex',
   gap: '10px',
   marginTop: '10px',
+
+  '@md': {
+    flexDirection: 'column',
+  },
 })
