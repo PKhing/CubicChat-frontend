@@ -7,6 +7,8 @@ import EditProfileModal from '../EditProfileModal'
 import { ProfileContainer, ProfileImage } from './styled'
 
 const Profile = () => {
+  const [isModalOpen, setModalOpen] = React.useState(false)
+
   return (
     <ProfileContainer>
       <ProfileImage
@@ -19,9 +21,18 @@ const Profile = () => {
       >
         Ayaka
       </Typography>
-      <Button variant="text" icon={BsPencilSquare} />
+      <Button
+        variant="text"
+        icon={BsPencilSquare}
+        onClick={() => setModalOpen(true)}
+      />
       <Button variant="text" icon={BsBoxArrowRight} />
-      <EditProfileModal />
+      {
+        <EditProfileModal
+          isOpen={isModalOpen}
+          onClose={() => setModalOpen(false)}
+        />
+      }
     </ProfileContainer>
   )
 }
