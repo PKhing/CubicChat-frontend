@@ -30,6 +30,8 @@ export const FormContainer = styled('div', {
   display: 'flex',
   gap: '10px',
   marginTop: '15px',
+  justifyContent: 'center',
+  alignItems: 'center',
 })
 
 export const ButtonContainer = styled('div', {

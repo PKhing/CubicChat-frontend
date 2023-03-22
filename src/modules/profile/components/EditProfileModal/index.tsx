@@ -5,7 +5,7 @@ import React from 'react'
 import { BsCheck2Square, BsDice5 } from 'react-icons/bs'
 import { Portal } from 'react-portal'
 
-import { ProfileImage } from '../Profile/styled'
+import ProfileImage from '../ProfileImage'
 import {
   ButtonContainer,
   FormContainer,
@@ -26,7 +26,10 @@ const EditProfileModal = ({ isOpen, onClose }: EditProfileModalProps) => {
           </Typography>
           <div>
             <FormContainer>
-              <ProfileImage src="https://popcat.click/twitter-card.jpg" />
+              <ProfileImage
+                src="https://popcat.click/twitter-card.jpg"
+                name="Ayaka"
+              />
               <TextField label="Nickname" />
             </FormContainer>
             <ButtonContainer>
