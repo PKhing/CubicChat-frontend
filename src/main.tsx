@@ -2,6 +2,7 @@ import './index.css'
 
 import { Layout } from 'common/components/Layout'
 import ChatProvider from 'common/context/ChatContext'
+import { UserProvider } from 'common/context/UserContext'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -11,10 +12,12 @@ const router = createBrowserRouter(route)
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <ChatProvider>
-      <Layout>
-        <RouterProvider router={router} />
-      </Layout>
-    </ChatProvider>
+    <UserProvider>
+      <ChatProvider>
+        <Layout>
+          <RouterProvider router={router} />
+        </Layout>
+      </ChatProvider>
+    </UserProvider>
   </React.StrictMode>,
 )
