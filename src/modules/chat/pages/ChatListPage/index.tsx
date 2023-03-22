@@ -12,7 +12,7 @@ import { ChatListContainer, PageContainer, TextFieldContainer } from './styled'
 
 const ChatListPage = () => {
   const { isMobile } = useResponsive()
-  const { currentTab, setTab, chatRooms } = useChatList()
+  const { currentTab, setTab, chatListItems, handleClick } = useChatList()
 
   return (
     <PageContainer>
@@ -24,8 +24,13 @@ const ChatListPage = () => {
       </TextFieldContainer>
       <ChatListTab currentTab={currentTab} setTab={setTab} />
       <ChatListContainer>
-        {chatRooms.map((chatRoom) => (
-          <ChatListItem key={chatRoom.chatId} chatRoom={chatRoom} />
+        {chatListItems.map((chatListItem) => (
+          <ChatListItem
+            key={chatListItem.id}
+            chatRoom={chatListItem}
+            onClick={handleClick}
+            currentTab={currentTab}
+          />
         ))}
       </ChatListContainer>
     </PageContainer>
