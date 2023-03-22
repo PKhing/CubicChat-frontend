@@ -1,5 +1,5 @@
 import Typography from 'common/components/Typography'
-import { ProfileImage } from 'modules/profile/components/Profile/styled'
+import ProfileImage from 'modules/profile/components/ProfileImage'
 import React from 'react'
 
 import {
@@ -13,7 +13,7 @@ const ChatItem = () => {
     <ChatItemContainer>
       <ProfileImage
         src="https://popcat.click/twitter-card.jpg"
-        alt="profile image"
+        name="Ayaka"
         css={{ paddingTop: '5px' }}
       />
       <MessagesContainer>
