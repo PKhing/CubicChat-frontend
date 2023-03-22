@@ -23,7 +23,7 @@ const getRandomItem = (type?: TabType) => {
   }
 }
 
-const useChatList = () => {
+const useChatList = (query: string) => {
   const [currentTab, setTab] = useState<TabType>(TabType.USER)
   const [chatListItems, setChatListItems] = useState<IChatListItem[]>([])
   const { openChat } = useChat()
@@ -37,9 +37,10 @@ const useChatList = () => {
         return getRandomItem(currentTab)
       },
     )
+    console.log(query)
 
     setChatListItems(MOCK_CHAT_ITEMS)
-  }, [currentTab])
+  }, [currentTab, query])
 
   const handleJoinGroup = useCallback(
     (chatId: string) => {
