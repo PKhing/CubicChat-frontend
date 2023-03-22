@@ -25,12 +25,7 @@ const Profile = () => {
         onClick={() => setModalOpen(true)}
       />
       <Button variant="text" icon={BsBoxArrowRight} />
-      {
-        <EditProfileModal
-          isOpen={isModalOpen}
-          onClose={() => setModalOpen(false)}
-        />
-      }
+      {isModalOpen && <EditProfileModal onClose={() => setModalOpen(false)} />}
     </ProfileContainer>
   )
 }

@@ -6,6 +6,7 @@ import { BsCheck2Square, BsDice5 } from 'react-icons/bs'
 import { Portal } from 'react-portal'
 
 import ProfileImage from '../ProfileImage'
+import useEditProfile from './hooks/useEditProfile'
 import {
   ButtonContainer,
   FormContainer,
@@ -14,8 +15,14 @@ import {
 } from './styled'
 import { EditProfileModalProps } from './types'
 
-const EditProfileModal = ({ isOpen, onClose }: EditProfileModalProps) => {
-  if (!isOpen) return null
+const EditProfileModal = ({ onClose }: EditProfileModalProps) => {
+  const {
+    username,
+    handleUsernameChange,
+    profileImageUrl,
+    randomProfileImageUrl,
+    handleSubmit,
+  } = useEditProfile(onClose)
 
   return (
     <Portal>
@@ -26,18 +33,24 @@ const EditProfileModal = ({ isOpen, onClose }: EditProfileModalProps) => {
           </Typography>
           <div>
             <FormContainer>
-              <ProfileImage
-                src="https://popcat.click/twitter-card.jpg"
-                name="Ayaka"
+              <ProfileImage src={profileImageUrl} name="Ayaka" />
+              <TextField
+                label="Nickname"
+                value={username}
+                onChange={handleUsernameChange}
               />
-              <TextField label="Nickname" />
             </FormContainer>
             <ButtonContainer>
-              <Button label="Random Profile" icon={BsDice5} />
+              <Button
+                label="Random Profile"
+                icon={BsDice5}
+                onClick={randomProfileImageUrl}
+              />
               <Button
                 label="Save"
                 icon={BsCheck2Square}
                 css={{ flexGrow: 1 }}
+                onClick={handleSubmit}
               />
             </ButtonContainer>
           </div>
