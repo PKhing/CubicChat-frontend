@@ -3,6 +3,7 @@ import TextField from 'common/components/TextField'
 import useResponsive from 'common/hooks/useResponsive'
 import ChatListItem from 'modules/chat/components/ChatListItem'
 import ChatListTab from 'modules/chat/components/ChatListTab'
+import CreateGroupModal from 'modules/chat/components/CreateGroupModal'
 import Profile from 'modules/profile/components/Profile'
 import React from 'react'
 import { BsPlusSquare, BsSearch } from 'react-icons/bs'
@@ -16,10 +17,16 @@ const ChatListPage = () => {
   const { handleQueryChange, searchQuery, query } = useSearch()
   const { currentTab, setTab, chatListItems, handleClick } = useChatList(query)
 
+  const [isModalOpen, setModalOpen] = React.useState(false)
+
   return (
     <PageContainer>
       <Profile />
-      <Button label="Create Group Chat" icon={BsPlusSquare} />
+      <Button
+        label="Create Group Chat"
+        icon={BsPlusSquare}
+        onClick={() => setModalOpen(true)}
+      />
       <TextFieldContainer>
         <BsSearch size={isMobile ? 20 : 24} />
         <TextField
@@ -39,6 +46,8 @@ const ChatListPage = () => {
           />
         ))}
       </ChatListContainer>
+
+      {isModalOpen && <CreateGroupModal onClose={() => setModalOpen(false)} />}
     </PageContainer>
   )
 }
