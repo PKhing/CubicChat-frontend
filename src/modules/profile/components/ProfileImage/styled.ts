@@ -7,9 +7,11 @@ export const ProfileContainer = styled('div', {
   justifyContent: 'center',
   height: '55px',
   width: '55px',
+  minWidth: '55px',
   '@md': {
     height: '45px',
     width: '45px',
+    minWidth: '45px',
   },
 })
 

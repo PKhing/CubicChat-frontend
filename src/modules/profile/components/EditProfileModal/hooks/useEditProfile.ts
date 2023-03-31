@@ -6,11 +6,23 @@ const useEditProfile = (onClose: () => void) => {
   const [profileImageUrl, setProfileImageUrl] = useState<string>('')
   const { refetch } = useUser()
 
+  const [errorMessage, setErrorMessage] = useState<null | string>(null)
+
+  const validate = useCallback((username: string) => {
+    if (username === '') {
+      setErrorMessage('Nickname is required')
+      return false
+    }
+    setErrorMessage(null)
+    return true
+  }, [])
+
   const handleUsernameChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       setUsername(e.target.value)
+      validate(e.target.value)
     },
-    [],
+    [validate],
   )
 
   const randomProfileImageUrl = useCallback(() => {
@@ -19,13 +31,15 @@ const useEditProfile = (onClose: () => void) => {
     setProfileImageUrl(`https://picsum.photos/id/${random}/200/200`)
   }, [])
 
-  const handleSubmit = useCallback(() => {
-    // TODO: Implement submit
-    alert('Submitted')
+  const handleSubmit = () => {
+    if (validate(username)) {
+      // TODO: Implement submit
+      alert('Submitted: ' + username)
 
-    refetch()
-    onClose()
-  }, [onClose, refetch])
+      refetch()
+      onClose()
+    }
+  }
 
   return {
     username,
@@ -33,6 +47,7 @@ const useEditProfile = (onClose: () => void) => {
     profileImageUrl,
     randomProfileImageUrl,
     handleSubmit,
+    errorMessage,
   }
 }
 
