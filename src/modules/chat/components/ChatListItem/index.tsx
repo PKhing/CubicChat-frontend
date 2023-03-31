@@ -1,29 +1,27 @@
 import Button from 'common/components/Button'
 import Typography from 'common/components/Typography'
-import { useChat } from 'common/context/ChatContext'
-import { ProfileImage } from 'modules/profile/components/Profile/styled'
+import { TabType } from 'modules/chat/pages/ChatListPage/constants'
+import ProfileImage from 'modules/profile/components/ProfileImage'
 import React from 'react'
 
 import { ItemContainer } from './styled'
+import { ChatListItemProps } from './types'
 
-const ChatListItem = () => {
-  const { openChat } = useChat()
+const ChatListItem = ({ chatRoom, onClick, currentTab }: ChatListItemProps) => {
+  const { name, imageUrl, id } = chatRoom
+
+  const isRecent = currentTab === TabType.RECENT
 
   return (
-    <ItemContainer>
-      <ProfileImage
-        src="https://popcat.click/twitter-card.jpg"
-        alt="profile image"
-      />
+    <ItemContainer
+      css={{ cursor: isRecent ? 'pointer' : undefined }}
+      onClick={isRecent ? () => onClick(id) : undefined}
+    >
+      <ProfileImage name={name} src={imageUrl} />
       <Typography variant="h5" css={{ flexGrow: 1, textAlign: 'left' }}>
-        Genshin Impact
+        {name}
       </Typography>
-      <Button
-        label="Join"
-        onClick={() => {
-          openChat('1')
-        }}
-      />
+      {!isRecent && <Button label="Join" onClick={() => onClick(id)} />}
     </ItemContainer>
   )
 }
