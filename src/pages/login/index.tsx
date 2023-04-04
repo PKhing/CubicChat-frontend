@@ -22,35 +22,53 @@ const Login = () => {
   })
 
   return (
-    <form
+    <div
       style={{
         display: 'flex',
-        width: '16vw',
-        flexGrow: '1',
-        flexDirection: 'column',
         justifyContent: 'center',
-        margin: 'auto',
-        //paddingTop: '20rem',
+        alignItems: 'center',
       }}
-      onSubmit={handleSubmit((d) => console.log(d))}
     >
-      <Controller
-        render={({ field }) => (
-          <TextField label={'Email'} placeholder="Email" {...field} />
-        )}
-        name="email"
-        control={control}
-      />
-      <Controller
-        render={({ field }) => (
-          <TextField label={'Password'} placeholder="Password" {...field} />
-        )}
-        name="password"
-        control={control}
-      />
-      <Typography variant='body1' color = 'primary500'>Forget your password?</Typography>
-      <Button label="login" fullWidth={true} />
-    </form>
+      <form
+        style={{
+          display: 'flex',
+          width: '16vw',
+          //   flexGrow: '1',
+          flexDirection: 'column',
+          margin: 'auto',
+          height: '100%',
+          //paddingTop: '20rem',
+        }}
+        onSubmit={handleSubmit((d) => console.log(d))}
+      >
+        <Controller
+          render={({ field }) => (
+            <TextField label={'Email'} placeholder="Email" {...field} />
+          )}
+          name="email"
+          control={control}
+        />
+        <Controller
+          render={({ field }) => (
+            <TextField label={'Password'} placeholder="Password" {...field} />
+          )}
+          name="password"
+          control={control}
+        />
+        <Typography variant="body1" color="primary500">
+          Forget your password?
+        </Typography>
+        <Button label="login" fullWidth={true} />
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <Typography variant="body1" color="white">
+            Need an account?
+          </Typography>
+          <Typography variant="body1" color="primary500">
+            Register
+          </Typography>
+        </div>
+      </form>
+    </div>
   )
 }
 
