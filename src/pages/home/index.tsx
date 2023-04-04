@@ -12,7 +12,7 @@ const Home = () => {
   const { isMobile } = useResponsive()
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', width: '100%' }}>
       {!isMobile && <RoomListPage />}
       {isRoomOpen ? (
         <ChatPage />
