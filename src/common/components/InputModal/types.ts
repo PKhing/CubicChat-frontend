@@ -2,7 +2,7 @@ import { ChangeEventHandler } from 'react'
 
 export interface InputModalProps {
   onClose: () => void
-  profileImageUrl?: string
+  profileImage?: string
   value: string
   onChange: ChangeEventHandler<HTMLInputElement>
   actions: JSX.Element

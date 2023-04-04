@@ -3,7 +3,7 @@ import { ChangeEvent, useCallback, useState } from 'react'
 
 const useEditProfile = (onClose: () => void) => {
   const [username, setUsername] = useState<string>('')
-  const [profileImageUrl, setProfileImageUrl] = useState<string>('')
+  const [profileImage, setProfileImageUrl] = useState<string>('')
   const { refetch } = useUser()
 
   const [errorMessage, setErrorMessage] = useState<null | string>(null)
@@ -44,7 +44,7 @@ const useEditProfile = (onClose: () => void) => {
   return {
     username,
     handleUsernameChange,
-    profileImageUrl,
+    profileImage,
     randomProfileImageUrl,
     handleSubmit,
     errorMessage,
