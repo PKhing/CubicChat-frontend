@@ -1,4 +1,5 @@
-import { useChat } from 'common/context/ChatContext'
+import ChatProvider, { useChat } from 'common/context/ChatContext'
+import SocketProvider from 'common/context/SocketContext'
 import withGuard from 'common/hoc/withGuard'
 import useResponsive from 'common/hooks/useResponsive'
 import ChatNotFound from 'modules/chat/components/ChatNotFound'
@@ -8,7 +9,6 @@ import React from 'react'
 
 const Home = () => {
   const { isChatOpen } = useChat()
-
   const { isMobile } = useResponsive()
 
   if (isMobile) {
@@ -22,4 +22,12 @@ const Home = () => {
   )
 }
 
-export default withGuard(Home)
+const WithProvider = () => (
+  <SocketProvider>
+    <ChatProvider>
+      <Home />
+    </ChatProvider>
+  </SocketProvider>
+)
+
+export default withGuard(WithProvider)
