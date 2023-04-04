@@ -1,4 +1,5 @@
 import { User } from 'common/types/base'
+import { apiClient } from 'common/utils/api/axiosInstance'
 import React, { useCallback, useEffect } from 'react'
 
 const useUserData = () => {
@@ -6,12 +7,14 @@ const useUserData = () => {
   const [isLoading, setLoading] = React.useState(true)
 
   const refetch = useCallback(async () => {
-    // TODO: Implement refetch
-    setUser({
-      userId: '1',
-      username: 'Ayaka',
-      profileImageUrl: 'https://popcat.click/twitter-card.jpg',
-    })
+    try {
+      const res = await apiClient.get<User>('/profile')
+      setUser(res.data)
+    } catch (e) {
+      setUser(null)
+    } finally {
+      setLoading(false)
+    }
     setLoading(false)
   }, [])
 

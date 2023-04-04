@@ -1,4 +1,5 @@
 import { useChat } from 'common/context/ChatContext'
+import withGuard from 'common/hoc/withGuard'
 import useResponsive from 'common/hooks/useResponsive'
 import ChatNotFound from 'modules/chat/components/ChatNotFound'
 import ChatListPage from 'modules/chat/pages/ChatListPage'
@@ -21,4 +22,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default withGuard(Home)
