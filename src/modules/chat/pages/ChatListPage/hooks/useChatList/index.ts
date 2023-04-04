@@ -37,7 +37,6 @@ const useChatList = (query: string) => {
         return getRandomItem(currentTab)
       },
     )
-    console.log(query)
 
     setChatListItems(MOCK_CHAT_ITEMS)
   }, [currentTab, query])

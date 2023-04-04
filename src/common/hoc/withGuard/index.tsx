@@ -8,11 +8,9 @@ const withGuard = (WrappedComponent: React.ComponentType) => {
     const { user } = useUser()
     const navigate = useNavigate()
 
-    console.log({ user })
-
     useEffect(() => {
       if (!user) {
-        navigate('/login', { replace: true })
+        navigate('/mock-login', { replace: true })
       }
     }, [navigate, user])
 
