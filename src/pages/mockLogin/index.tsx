@@ -2,13 +2,13 @@ import { apiClient } from 'common/utils/api/axiosInstance'
 import React from 'react'
 
 const MockLogin = () => {
-  console.log({ base: import.meta.env.VITE_API_BASE_URL })
   const handleLogin1 = () => {
     apiClient.post('/auth/login', {
       email: 'mafumafu@gmail.com',
       password: 'password',
     })
   }
+
   const handleLogin2 = () => {
     apiClient.post('/auth/login', {
       email: 'soraru@gmail.com',

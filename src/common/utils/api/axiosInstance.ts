@@ -5,8 +5,6 @@ const BASE_URL =
     ? '/api'
     : import.meta.env.VITE_API_BASE_URL
 
-console.log(import.meta.env.ENABLE_PROXY, import.meta.env.VITE_API_BASE_URL)
-
 export const apiClient = axios.create({
   baseURL: BASE_URL,
   timeout: 10000,
