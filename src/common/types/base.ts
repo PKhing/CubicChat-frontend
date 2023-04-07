@@ -1,6 +1,7 @@
 export interface User {
   username: string
   profileImage: string
+  userId: string
 }
 
 export enum MessageType {
@@ -9,8 +10,9 @@ export enum MessageType {
 }
 
 export interface IChatItem {
-  sender: string
+  senderName: string
   profileImage: string
+  senderId: string
   message: IMessage[]
 }
 

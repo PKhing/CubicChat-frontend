@@ -1,4 +1,5 @@
 import Typography from 'common/components/Typography'
+import { useUser } from 'common/context/UserContext'
 import { IChatItem, IMessage } from 'common/types/base'
 import ProfileImage from 'modules/profile/components/ProfileImage'
 import React from 'react'
@@ -10,19 +11,22 @@ import {
 } from './styled'
 
 const ChatItem = (props: IChatItem) => {
-  const { sender, profileImage, message } = props
+  const { user } = useUser()
+  const { senderName, profileImage, message, senderId } = props
+
   const timestamp = message[0].timestamp
+  const isOwner = user?.userId === senderId
 
   return (
     <ChatItemContainer>
       <ProfileImage
         src={profileImage}
-        name={sender}
+        name={senderName}
         css={{ paddingTop: '5px' }}
       />
       <MessagesContainer>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Typography color="primary100">{sender}</Typography>
+          <Typography color="primary100">{senderName}</Typography>
           <Typography
             css={{ marginLeft: '10px', marginTop: '5px' }}
             variant="caption"
@@ -34,7 +38,7 @@ const ChatItem = (props: IChatItem) => {
           </Typography>
         </div>
         {message.map(({ content, timestamp }: IMessage) => (
-          <MessageContainer key={timestamp}>
+          <MessageContainer key={timestamp} isOwner={isOwner}>
             <Typography>{content}</Typography>
           </MessageContainer>
         ))}

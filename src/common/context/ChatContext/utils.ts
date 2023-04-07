@@ -5,7 +5,7 @@ export const appendMessage = (
   chatItems: IChatItem[],
   message: ChatMessageDto,
 ): IChatItem[] => {
-  const { sender, profileImage, ...newMessage } = message
+  const { senderName, profileImage, senderId, ...newMessage } = message
 
   if (isAppendAble(chatItems, message)) {
     const newChatItems = [...chatItems]
@@ -19,8 +19,9 @@ export const appendMessage = (
   return [
     ...chatItems,
     {
-      sender: sender,
-      profileImage: profileImage,
+      senderName,
+      senderId,
+      profileImage,
       message: [newMessage],
     },
   ]
@@ -33,9 +34,9 @@ export const isAppendAble = (
   // first message
   if (chatItems.length === 0) return false
 
-  // not same sender
+  // not same senderName
   const lastChatItem = chatItems[chatItems.length - 1]
-  if (lastChatItem.sender !== message.sender) return false
+  if (lastChatItem.senderName !== message.senderName) return false
 
   // more than 5 minutes
   const lastTimeStamp = new Date(

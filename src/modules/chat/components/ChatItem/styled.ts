@@ -13,6 +13,7 @@ export const MessagesContainer = styled('div', {
 
 export const MessageContainer = styled('div', {
   padding: '8px 10px',
+  width: 'fit-content',
   variants: {
     isOwner: {
       true: {

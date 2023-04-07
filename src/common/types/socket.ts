@@ -1,12 +1,13 @@
 import { MessageType } from './base'
 export interface ChatMessageDto {
-  sender: string
+  senderName: string
+  senderId: string
   profileImage: string
-  chatRoomId: string
   messageType: MessageType
   content: string
   timestamp: string
 }
+
 export interface ServerToClientEvents {
   chatMessage: (data: ChatMessageDto) => void
   notify: (roomId: string) => void
