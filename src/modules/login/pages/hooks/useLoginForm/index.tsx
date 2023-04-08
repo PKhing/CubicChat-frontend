@@ -17,11 +17,7 @@ const useLoginForm = () => {
   const handleSuccess: SubmitHandler<ILoginSchemaType> = useCallback(
     async (data) => {
       try {
-        await apiClient.post('auth/login', {
-          email: data.email,
-          password: data.password,
-        })
-
+        await apiClient.post('auth/login', data)
         navigate('/')
       } catch (err) {
         window.alert('Wrong email or password')

@@ -1,8 +1,1 @@
-import LoginPage from 'modules/login/pages'
-import React from 'react'
-
-const Login = () => {
-  return <LoginPage />
-}
-
-export default Login
+export { default } from 'modules/login/pages'

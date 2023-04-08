@@ -8,7 +8,7 @@ export const PageContainer = styled('div', {
   position: 'absolute',
   gap: '7rem',
 
-  '@md': {
+  '@lg': {
     flexDirection: 'column',
     top: '5%',
     gap: '3rem',
@@ -23,7 +23,7 @@ export const FormContainer = styled('form', {
   height: 'fit-content',
   padding: '1rem',
 
-  '@md': {
+  '@lg': {
     width: '80%',
   },
 })
