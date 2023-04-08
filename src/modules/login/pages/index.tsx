@@ -6,6 +6,7 @@ import cube from 'assets/cube.png'
 import useResponsive from 'common/hooks/useResponsive'
 import useLoginForm from './hooks/useLoginForm'
 import { PageContainer, FormContainer } from './styled'
+import { Link } from 'react-router-dom'
 
 const LoginPage = () => {
   const { handleClickSubmit, control } = useLoginForm()
@@ -56,9 +57,11 @@ const LoginPage = () => {
           <Typography variant="body1" color="white">
             Need an account?
           </Typography>
-          <Typography variant="body1" color="primary500">
-            Register
-          </Typography>
+          <Link to="/signup">
+            <Typography variant="body1" color="primary500">
+              Register
+            </Typography>
+          </Link>
         </div>
       </FormContainer>
     </PageContainer>
