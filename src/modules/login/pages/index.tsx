@@ -2,27 +2,43 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import Button from 'common/components/Button'
 import TextField from 'common/components/TextField'
 import Typography from 'common/components/Typography'
-import React from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import React, { useCallback } from 'react'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import * as z from 'zod'
 import cube from 'assets/cube.png'
 import useResponsive from 'common/hooks/useResponsive'
+import { useNavigate } from 'react-router-dom'
+import { apiClient } from 'common/utils/api/axiosInstance'
 
-const schema = z.object({
+const LoginSchema = z.object({
   email: z
-    .string()
-    .min(1, { message: 'This field is required.' })
+    .string({ required_error: 'This field is required.' })
     .email('This email is not a valid email.'),
-  password: z.string().min(1, { message: 'This field is required.' }),
+  password: z.string({ required_error: 'This field is required.' }),
 })
 
-type Schema = z.infer<typeof schema>
+type Schema = z.infer<typeof LoginSchema>
 
 const LoginPage = () => {
   const { handleSubmit, control } = useForm<Schema>({
-    resolver: zodResolver(schema),
+    criteriaMode: 'all',
+    resolver: zodResolver(LoginSchema),
   })
 
+  const navigate = useNavigate()
+
+  const handleSuccess: SubmitHandler<Schema> = useCallback(async (data) => {
+    try {
+      await apiClient.post('auth/login', {
+        email: data.email,
+        password: data.password,
+      })
+
+      navigate('/')
+    } catch (err) {
+      window.alert('Wrong email or password')
+    }
+  }, [])
   const { isMobile } = useResponsive()
 
   return (
@@ -47,27 +63,29 @@ const LoginPage = () => {
           height: 'fit-content',
           padding: '1rem',
         }}
-        onSubmit={handleSubmit((d) => console.log(d))}
+        onSubmit={handleSubmit(handleSuccess)}
       >
         <Controller
-          render={({ field }) => (
+          render={({ field, ...formProps }) => (
             <TextField
-              style={{ marginBottom: '1rem' }}
+              style={{}}
               label={'Email'}
               placeholder="Email"
               {...field}
+              helperText={formProps.fieldState.error?.message}
             />
           )}
           name="email"
           control={control}
         />
         <Controller
-          render={({ field }) => (
+          render={({ field, ...formProps }) => (
             <TextField
               type="password"
               label={'Password'}
               placeholder="Password"
               {...field}
+              helperText={formProps.fieldState.error?.message}
             />
           )}
           name="password"
@@ -80,10 +98,14 @@ const LoginPage = () => {
         >
           Forget your password ?
         </Typography>
-        <Button label="login" fullWidth={true} />
+        <Button
+          label="login"
+          fullWidth={true}
+          style={{ marginBottom: '0.5rem' }}
+        />
         <div style={{ display: 'flex', flexDirection: 'row', gap: '5px' }}>
           <Typography variant="body1" color="white">
-            Need an account ?
+            Need an account?
           </Typography>
           <Typography variant="body1" color="primary500">
             Register
