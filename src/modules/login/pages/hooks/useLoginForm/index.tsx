@@ -1,9 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { apiClient } from 'common/utils/api/axiosInstance'
 import { FormEventHandler, useCallback } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { LoginSchema, ILoginSchemaType } from './schema'
+
+import { ILoginSchemaType, LoginSchema } from './schema'
 
 const useLoginForm = () => {
   const { handleSubmit, control } = useForm<ILoginSchemaType>({
@@ -26,7 +27,7 @@ const useLoginForm = () => {
         window.alert('Wrong email or password')
       }
     },
-    [],
+    [navigate],
   )
 
   const handleClickSubmit: FormEventHandler<HTMLFormElement> =

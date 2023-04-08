@@ -1,12 +1,14 @@
+import cube from 'assets/cube.png'
 import Button from 'common/components/Button'
 import TextField from 'common/components/TextField'
 import Typography from 'common/components/Typography'
-import { Controller } from 'react-hook-form'
-import cube from 'assets/cube.png'
 import useResponsive from 'common/hooks/useResponsive'
-import useLoginForm from './hooks/useLoginForm'
-import { PageContainer, FormContainer } from './styled'
+import React from 'react'
+import { Controller } from 'react-hook-form'
 import { Link } from 'react-router-dom'
+
+import useLoginForm from './hooks/useLoginForm'
+import { FormContainer, PageContainer } from './styled'
 
 const LoginPage = () => {
   const { handleClickSubmit, control } = useLoginForm()
