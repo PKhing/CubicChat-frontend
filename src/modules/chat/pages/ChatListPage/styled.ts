@@ -6,6 +6,7 @@ export const PageContainer = styled('div', {
   padding: '15px',
   gap: '20px',
   maxHeight: '100vh',
+  height: '100vh',
   boxSizing: 'border-box',
   borderRight: '1px solid $primary600',
   maxWidth: '380px',

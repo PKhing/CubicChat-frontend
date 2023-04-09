@@ -1,45 +1,48 @@
 import { useChat } from 'common/context/ChatContext'
+import { GetGroupsDto } from 'common/types/dtos/group.types'
+import { GetUsersDto } from 'common/types/dtos/user.types'
+import { apiClient } from 'common/utils/api/axiosInstance'
 import { IChatListItem } from 'modules/chat/components/ChatListItem/types'
 import { useCallback, useEffect, useState } from 'react'
 
 import { TabType } from '../../constants'
-
-// ignore this just mocking
-const getRandomItem = (type?: TabType) => {
-  const random = Math.floor(Math.random() * 100000)
-  if (type === TabType.RECENT)
-    type = Math.random() > 0.5 ? TabType.GROUP : TabType.USER
-
-  const name = `${type} ${random}`
-  const imageUrl =
-    type == TabType.USER
-      ? `https://picsum.photos/300/300?random=${random}`
-      : undefined
-
-  return {
-    id: random.toString(),
-    name,
-    imageUrl,
-  }
-}
 
 const useChatList = (query: string) => {
   const [currentTab, setTab] = useState<TabType>(TabType.USER)
   const [chatListItems, setChatListItems] = useState<IChatListItem[]>([])
   const { openChat } = useChat()
 
+  const getChatListItems = useCallback(
+    async (type: TabType): Promise<IChatListItem[]> => {
+      if (type === TabType.USER) {
+        const res = await apiClient.get<GetUsersDto>('/users')
+
+        console.log(res)
+
+        return res.data.users.map(({ userId, username, profileImage }) => ({
+          id: userId,
+          name: username,
+          imageUrl: profileImage,
+        }))
+      } else if (type === TabType.GROUP) {
+        const res = await apiClient.get<GetGroupsDto>('/groups')
+        return res.data.groups.map(({ chatRoomId, name }) => ({
+          id: chatRoomId,
+          name,
+        }))
+      } else {
+        return []
+      }
+    },
+    [],
+  )
+
   useEffect(() => {
-    // TODO: fetch chat rooms
-
-    // ignore this just mocking
-    const MOCK_CHAT_ITEMS: IChatListItem[] = Array.from({ length: 10 }).map(
-      () => {
-        return getRandomItem(currentTab)
-      },
-    )
-
-    setChatListItems(MOCK_CHAT_ITEMS)
-  }, [currentTab, query])
+    const fetchData = async () => {
+      setChatListItems(await getChatListItems(currentTab))
+    }
+    fetchData()
+  }, [currentTab, getChatListItems, query])
 
   const handleJoinGroup = useCallback(
     (chatId: string) => {

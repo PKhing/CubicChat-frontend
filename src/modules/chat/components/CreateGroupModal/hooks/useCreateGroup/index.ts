@@ -1,3 +1,4 @@
+import { apiClient } from 'common/utils/api/axiosInstance'
 import { useCallback, useState } from 'react'
 
 const useCreateGroup = (onClose: () => void) => {
@@ -22,10 +23,12 @@ const useCreateGroup = (onClose: () => void) => {
     [validate],
   )
 
-  const handleCreateGroup = () => {
+  const handleCreateGroup = async () => {
     if (validate(groupName)) {
-      // TODO: Create group
-      alert('Create group: ' + groupName)
+      await apiClient.post('/groups/create', { name: groupName })
+
+      // will fix later
+      window.location.reload()
 
       onClose()
     }
