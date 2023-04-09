@@ -5,6 +5,7 @@ export const ChatInputContainer = styled('div', {
   display: 'flex',
   height: '120px',
   alignItems: 'flex-end',
+  flexShrink: 0,
 })
 
 export const ButtonContainer = styled('div', {

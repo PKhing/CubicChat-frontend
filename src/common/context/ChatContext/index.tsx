@@ -6,12 +6,13 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react'
 
 import { useSocket } from '../SocketContext'
 import { IChatContext } from './type'
-import { appendMessage } from './utils'
+import { appendBack, isAtBottomOfDiv } from './utils'
 
 const ChatContext = createContext<IChatContext>({} as IChatContext)
 
@@ -20,8 +21,9 @@ export const useChat = () => useContext(ChatContext)
 const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
   const [chatId, setChatId] = useState<string | null>(null)
   const { socket } = useSocket()
+  const chatBoxRef = useRef<HTMLDivElement>(null)
 
-  // ===================== Chat ====================
+  // ===================== Chat =====================
   const closeChat = useCallback(() => {
     socket.emit('leave', chatId!)
     setChatId(null)
@@ -35,13 +37,15 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
     // socket.emit('join', newChatId)
   }, [chatId, closeChat, socket])
 
-  // ===================== Message ====================
+  // ===================== Message =====================
   const [chatItems, setChatItems] = React.useState<IChatItem[]>([])
+  const [isAtBottom, setIsAtBottom] = React.useState<boolean>(true)
 
   useEffect(() => {
     socket.on('chatMessage', (message) => {
-      console.log(message)
-      setChatItems((chatItems) => appendMessage(chatItems, message))
+      setChatItems((chatItems) => appendBack(chatItems, message))
+
+      setIsAtBottom(isAtBottomOfDiv(chatBoxRef))
     })
 
     return () => {
@@ -49,9 +53,23 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
     }
   }, [socket])
 
+  // scroll to bottom
+  useEffect(() => {
+    if (isAtBottom && chatBoxRef.current) {
+      chatBoxRef.current!.scrollTo(0, chatBoxRef.current!.scrollHeight)
+    }
+  }, [isAtBottom, chatItems])
+
   const value = useMemo(
-    () => ({ openChat, closeChat, isChatOpen: !!chatId, chatId, chatItems }),
-    [openChat, closeChat, chatId, chatItems],
+    () => ({
+      openChat,
+      closeChat,
+      isChatOpen: !!chatId,
+      chatId,
+      chatItems,
+      chatBoxRef,
+    }),
+    [openChat, closeChat, chatId, chatItems, chatBoxRef],
   )
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>

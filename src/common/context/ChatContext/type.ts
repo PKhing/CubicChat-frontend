@@ -6,4 +6,5 @@ export interface IChatContext {
   isChatOpen: boolean
   chatId: string | null
   chatItems: IChatItem[]
+  chatBoxRef: React.RefObject<HTMLDivElement>
 }
