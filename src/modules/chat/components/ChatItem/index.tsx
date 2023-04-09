@@ -22,7 +22,7 @@ const ChatItem = (props: IChatItem) => {
       <ProfileImage
         src={profileImage}
         name={senderName}
-        css={{ paddingTop: '5px' }}
+        css={{ marginTop: '5px' }}
       />
       <MessagesContainer>
         <div style={{ display: 'flex', alignItems: 'center' }}>

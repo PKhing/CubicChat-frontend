@@ -17,7 +17,10 @@ export const ProfileContainer = styled('div', {
 
 export const StyledProfileImage = styled('img', {
   height: '55px',
+  width: '55px',
   '@md': {
     height: '45px',
+    width: '45px',
   },
+  backgroundColor: '$primary700',
 })
