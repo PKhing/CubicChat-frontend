@@ -1,4 +1,5 @@
 import { IChatItem } from 'common/types/base'
+import { apiClient } from 'common/utils/api/axiosInstance'
 import React, {
   createContext,
   PropsWithChildren,
@@ -41,6 +42,15 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
   // ===================== Message =====================
   const [chatItems, setChatItems] = React.useState<IChatItem[]>([])
   const [isAtBottom, setIsAtBottom] = React.useState<boolean>(true)
+
+  useEffect(() => {
+    const getChatHistory = async () => {
+      const res = await apiClient.get(`/chat/rooms/${chatId}/history`)
+      console.log(res)
+    }
+    getChatHistory()
+    setChatItems([])
+  }, [chatId])
 
   useEffect(() => {
     socket.on('chatMessage', (message) => {

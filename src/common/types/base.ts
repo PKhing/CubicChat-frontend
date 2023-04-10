@@ -9,6 +9,11 @@ export enum MessageType {
   STICKER = 'STICKER',
 }
 
+export enum ChatRoomType {
+  PRIVATE = 'PRIVATE',
+  GROUP = 'GROUP',
+}
+
 export interface IChatItem {
   senderName: string
   profileImage: string

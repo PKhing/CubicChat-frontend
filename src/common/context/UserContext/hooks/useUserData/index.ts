@@ -26,7 +26,7 @@ const useUserData = () => {
     refetch()
   }, [refetch])
 
-  return { user, isLoading, refetch, reset }
+  return { user, isLoading, refetch, reset, setUser }
 }
 
 export default useUserData

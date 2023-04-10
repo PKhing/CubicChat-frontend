@@ -1,5 +1,6 @@
 import { useChat } from 'common/context/ChatContext'
-import { GetGroupsDto } from 'common/types/dtos/group.types'
+import { useUser } from 'common/context/UserContext'
+import { GetGroupsDto, GetRecentGroupsDto } from 'common/types/dtos/group.types'
 import { GetUsersDto } from 'common/types/dtos/user.types'
 import { apiClient } from 'common/utils/api/axiosInstance'
 import { IChatListItem } from 'modules/chat/components/ChatListItem/types'
@@ -11,6 +12,7 @@ const useChatList = (query: string) => {
   const [currentTab, setTab] = useState<TabType>(TabType.USER)
   const [chatListItems, setChatListItems] = useState<IChatListItem[]>([])
   const { openChat } = useChat()
+  const { user } = useUser()
 
   const handleTabChange = useCallback((tab: TabType) => {
     setChatListItems([])
@@ -21,11 +23,14 @@ const useChatList = (query: string) => {
     async (type: TabType): Promise<IChatListItem[]> => {
       if (type === TabType.USER) {
         const res = await apiClient.get<GetUsersDto>('/users')
-        return res.data.users.map(({ userId, username, profileImage }) => ({
-          id: userId,
-          name: username,
-          imageUrl: profileImage,
-        }))
+        const users = res.data.users.map(
+          ({ userId, username, profileImage }) => ({
+            id: userId,
+            name: username,
+            imageUrl: profileImage,
+          }),
+        )
+        return users.filter(({ id }) => id != user!.userId)
       } else if (type === TabType.GROUP) {
         const res = await apiClient.get<GetGroupsDto>('/groups')
         return res.data.groups.map(({ chatRoomId, name }) => ({
@@ -33,10 +38,14 @@ const useChatList = (query: string) => {
           name,
         }))
       } else {
-        return []
+        const res = await apiClient.get<GetRecentGroupsDto>('/groups/recent')
+        return res.data.groups.map(({ chatRoomId, name }) => ({
+          id: chatRoomId,
+          name,
+        }))
       }
     },
-    [],
+    [user],
   )
 
   useEffect(() => {

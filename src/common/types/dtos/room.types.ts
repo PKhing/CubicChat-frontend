@@ -9,3 +9,8 @@ export interface GetChatMessageDto {
   }
   content: string
 }
+
+export interface GetChatHistoryDto {
+  maxPage: number
+  messages: GetChatMessageDto[]
+}
