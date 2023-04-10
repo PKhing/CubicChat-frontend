@@ -1,14 +1,8 @@
-import { MessageType } from '@prisma/client'
+import { MessageType } from '../base'
+import { ChatMessageDto } from './chat.types'
 
 export interface ServerToClientEvents {
-  chatMessage: (data: {
-    senderId: string
-    senderName: string
-    profileImage: string
-    messageType: MessageType
-    content: string
-    timestamp: Date
-  }) => void
+  chatMessage: (data: ChatMessageDto) => void
   notify: (roomId: string) => void
   invite: (roomId: string) => void
 }

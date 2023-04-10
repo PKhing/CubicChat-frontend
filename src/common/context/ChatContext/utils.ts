@@ -1,5 +1,5 @@
 import { IChatItem } from 'common/types/base'
-import { ChatMessageDto } from 'common/types/socket'
+import { ChatMessageDto } from 'common/types/dtos/chat.types'
 
 export const appendFront = (
   chatItems: IChatItem[],

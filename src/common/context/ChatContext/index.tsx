@@ -1,8 +1,10 @@
 import { IChatItem } from 'common/types/base'
+import { GetChatHistoryDto } from 'common/types/dtos/room.types'
 import { apiClient } from 'common/utils/api/axiosInstance'
 import React, {
   createContext,
   PropsWithChildren,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -12,7 +14,7 @@ import React, {
 import { useRoom } from '../RoomContext'
 import { useSocket } from '../SocketContext'
 import { IChatContext } from './type'
-import { appendBack, isAtBottomOfDiv } from './utils'
+import { appendBack, appendFront, isAtBottomOfDiv } from './utils'
 
 const ChatContext = createContext<IChatContext>({} as IChatContext)
 
@@ -26,14 +28,28 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
   const { roomId } = useRoom()
 
   // ===================== Get History =====================
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const fetchChatHistory = useCallback(async (roomId: string, page = 1) => {
+    const res = await apiClient.get<GetChatHistoryDto>(
+      `/chat/rooms/${roomId}/history`,
+    )
+
+    setChatItems((chatItems) => {
+      for (const message of res.data.messages.reverse()) {
+        chatItems = appendFront(chatItems, message)
+      }
+      console.log('chatItems', chatItems)
+      return chatItems
+    })
+  }, [])
+
   useEffect(() => {
-    const getChatHistory = async () => {
-      const res = await apiClient.get(`/chat/rooms/${roomId}/history`)
-      console.log(res)
+    if (roomId) {
+      setChatItems([])
+      fetchChatHistory(roomId)
     }
-    getChatHistory()
-    setChatItems([])
-  }, [roomId])
+  }, [roomId, fetchChatHistory])
 
   // ===================== Listen on new message =====================
   useEffect(() => {

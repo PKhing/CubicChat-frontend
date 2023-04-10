@@ -1,4 +1,7 @@
-import { ClientToServerEvents, ServerToClientEvents } from 'common/types/socket'
+import {
+  ClientToServerEvents,
+  ServerToClientEvents,
+} from 'common/types/dtos/socket.types'
 import { API_BASE_URL } from 'common/utils/api/axiosInstance'
 import React, {
   createContext,
