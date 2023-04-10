@@ -39,7 +39,7 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
     )
 
     setChatItems((chatItems) => {
-      for (const message of res.data.messages.reverse()) {
+      for (const message of res.data.messages) {
         chatItems = appendFront(chatItems, message)
       }
       return chatItems
