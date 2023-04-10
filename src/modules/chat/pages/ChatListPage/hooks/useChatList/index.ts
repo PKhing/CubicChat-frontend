@@ -1,78 +1,92 @@
 import { useRoom } from 'common/context/RoomContext'
+import { useSocket } from 'common/context/SocketContext'
 import { useUser } from 'common/context/UserContext'
-import {
-  ChatRoomIdDto,
-  GetGroupsDto,
-  GetRecentGroupsDto,
-} from 'common/types/dtos/group.types'
-import { GetUsersDto } from 'common/types/dtos/user.types'
+import { ChatRoomIdDto } from 'common/types/dtos/group.types'
 import { apiClient } from 'common/utils/api/axiosInstance'
 import { IChatListItem } from 'modules/chat/components/ChatListItem/types'
 import { useCallback, useEffect, useState } from 'react'
 
 import { TabType } from '../../constants'
+import { getChatListItems } from './utils'
 
 const useChatList = (query: string) => {
   const [currentTab, setTab] = useState<TabType>(TabType.USER)
   const [chatListItems, setChatListItems] = useState<IChatListItem[]>([])
   const { openRoom } = useRoom()
   const { user } = useUser()
+  const { socket } = useSocket()
+
+  // ============ Change tab ============
 
   const handleTabChange = useCallback((tab: TabType) => {
     setChatListItems([])
     setTab(tab)
   }, [])
 
-  const getChatListItems = useCallback(
-    async (type: TabType): Promise<IChatListItem[]> => {
-      if (type === TabType.USER) {
-        const res = await apiClient.get<GetUsersDto>('/users')
-        const users = res.data.users.map(
-          ({ userId, username, profileImage }) => ({
-            id: userId,
-            name: username,
-            imageUrl: profileImage,
-          }),
-        )
-        return users.filter(({ id }) => id != user!.userId)
-      } else if (type === TabType.GROUP) {
-        const res = await apiClient.get<GetGroupsDto>('/groups')
-        return res.data.groups.map(({ chatRoomId, name }) => ({
-          id: chatRoomId,
-          name,
-        }))
-      } else {
-        const res = await apiClient.get<GetRecentGroupsDto>('/groups/recent')
-        return res.data.groups.map(({ chatRoomId, name }) => ({
-          id: chatRoomId,
-          name,
-        }))
-      }
-    },
-    [user],
-  )
+  // ============ Fetch when tab and query change ============
 
   useEffect(() => {
     const fetchData = async () => {
-      setChatListItems(await getChatListItems(currentTab))
+      setChatListItems(await getChatListItems(currentTab, user!.userId))
     }
     fetchData()
-  }, [currentTab, getChatListItems, query])
+  }, [currentTab, query, user])
+
+  // ============ Listen on invite ============
+
+  useEffect(() => {
+    socket.on('invite', (roomId: string) => {
+      socket.emit('addRoom', roomId)
+    })
+
+    return () => {
+      socket.off('invite')
+    }
+  }, [socket])
+
+  // ============ Listen on notify ============
+  useEffect(() => {
+    if (currentTab !== TabType.RECENT) return
+
+    socket.on('notify', (roomId: string) => {
+      const idx = chatListItems.findIndex((item) => item.id === roomId)
+
+      if (idx === -1) {
+        // TODO: get new chat list item
+        return
+      }
+
+      const newChatListItems = [...chatListItems]
+      newChatListItems.splice(idx, 1)
+      setChatListItems([chatListItems[idx], ...newChatListItems])
+    })
+
+    return () => {
+      socket.off('notify')
+    }
+  }, [chatListItems, socket, currentTab])
+
+  // ============ Handlers ============
 
   const handleJoinGroup = useCallback(
     async (roomId: string) => {
       await apiClient.put(`/groups/${roomId}/join`)
+      socket.emit('addRoom', roomId)
+
       openRoom(roomId)
     },
-    [openRoom],
+    [openRoom, socket],
   )
 
   const handleStartDm = useCallback(
     async (userId: string) => {
       const res = await apiClient.get<ChatRoomIdDto>(`/users/${userId}/chat`)
-      openRoom(res.data.chatRoomId)
+      const roomId = res.data.chatRoomId
+      openRoom(roomId)
+
+      socket.emit('addRoom', roomId, userId)
     },
-    [openRoom],
+    [openRoom, socket],
   )
 
   const handlers = {
