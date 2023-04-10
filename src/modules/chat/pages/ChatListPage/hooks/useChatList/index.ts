@@ -12,13 +12,15 @@ const useChatList = (query: string) => {
   const [chatListItems, setChatListItems] = useState<IChatListItem[]>([])
   const { openChat } = useChat()
 
+  const handleTabChange = useCallback((tab: TabType) => {
+    setChatListItems([])
+    setTab(tab)
+  }, [])
+
   const getChatListItems = useCallback(
     async (type: TabType): Promise<IChatListItem[]> => {
       if (type === TabType.USER) {
         const res = await apiClient.get<GetUsersDto>('/users')
-
-        console.log(res)
-
         return res.data.users.map(({ userId, username, profileImage }) => ({
           id: userId,
           name: username,
@@ -45,10 +47,8 @@ const useChatList = (query: string) => {
   }, [currentTab, getChatListItems, query])
 
   const handleJoinGroup = useCallback(
-    (chatId: string) => {
-      // TODO: Call API
-      alert(`Joined ${chatId} !`)
-
+    async (chatId: string) => {
+      await apiClient.put(`/groups/${chatId}/join`)
       openChat(chatId)
     },
     [openChat],
@@ -73,7 +73,7 @@ const useChatList = (query: string) => {
 
   return {
     currentTab,
-    setTab,
+    setTab: handleTabChange,
     chatListItems,
     handleClick: handlers[currentTab],
   }

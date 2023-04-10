@@ -25,7 +25,7 @@ const useCreateGroup = (onClose: () => void) => {
 
   const handleCreateGroup = async () => {
     if (validate(groupName)) {
-      await apiClient.post('/groups/create', { name: groupName })
+      await apiClient.post('/groups', { name: groupName })
 
       // will fix later
       window.location.reload()

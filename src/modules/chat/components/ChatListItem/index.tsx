@@ -21,7 +21,12 @@ const ChatListItem = ({ chatRoom, onClick, currentTab }: ChatListItemProps) => {
       <Typography variant="h5" css={{ flexGrow: 1, textAlign: 'left' }}>
         {name}
       </Typography>
-      {!isRecent && <Button label="Join" onClick={() => onClick(id)} />}
+      {!isRecent && (
+        <Button
+          label={currentTab === TabType.GROUP ? 'Join' : 'Chat'}
+          onClick={() => onClick(id)}
+        />
+      )}
     </ItemContainer>
   )
 }

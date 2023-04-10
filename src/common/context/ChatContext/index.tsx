@@ -29,13 +29,14 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
     setChatId(null)
   }, [chatId, socket])
 
-  const openChat = useCallback(() => {
-    if (chatId) closeChat()
-    setChatId('1')
-    // setChatId(newChatId)
-    socket.emit('join', '1')
-    // socket.emit('join', newChatId)
-  }, [chatId, closeChat, socket])
+  const openChat = useCallback(
+    (newChatId: string) => {
+      if (chatId) closeChat()
+      setChatId(newChatId)
+      socket.emit('join', newChatId)
+    },
+    [chatId, closeChat, socket],
+  )
 
   // ===================== Message =====================
   const [chatItems, setChatItems] = React.useState<IChatItem[]>([])
