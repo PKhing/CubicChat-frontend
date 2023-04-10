@@ -26,7 +26,13 @@ const SocketProvider = ({ children }: PropsWithChildren<unknown>) => {
 
   useEffect(() => {
     console.log('baseurl', API_BASE_URL + '/socket.io')
-    const socket = io({ path: API_BASE_URL + '/socket.io' })
+
+    let socket: Socket
+    if (import.meta.env.VITE_ENABLE_PROXY === 'true') {
+      socket = io({ path: API_BASE_URL + '/socket.io' })
+    } else {
+      socket = io(API_BASE_URL)
+    }
 
     setSocket(socket)
 
