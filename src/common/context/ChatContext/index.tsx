@@ -13,6 +13,7 @@ import React, {
 
 import { useRoom } from '../RoomContext'
 import { useSocket } from '../SocketContext'
+import { useUser } from '../UserContext'
 import { IChatContext } from './type'
 import { appendBack, appendFront, isAtBottomOfDiv } from './utils'
 
@@ -25,7 +26,9 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
   const chatBoxRef = useRef<HTMLDivElement>(null)
   const [chatItems, setChatItems] = React.useState<IChatItem[]>([])
   const [isAtBottom, setIsAtBottom] = React.useState<boolean>(true)
+  const [newMessageNoti, triggerNewmessage] = React.useState<number>(0)
   const { roomId } = useRoom()
+  const { user } = useUser()
 
   // ===================== Get History =====================
 
@@ -39,7 +42,6 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
       for (const message of res.data.messages.reverse()) {
         chatItems = appendFront(chatItems, message)
       }
-      console.log('chatItems', chatItems)
       return chatItems
     })
   }, [])
@@ -56,27 +58,38 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
     socket.on('chatMessage', (message) => {
       setChatItems((chatItems) => appendBack(chatItems, message))
 
-      setIsAtBottom(isAtBottomOfDiv(chatBoxRef))
+      const isAtBottom = isAtBottomOfDiv(chatBoxRef)
+      setIsAtBottom(isAtBottom)
+      if (!isAtBottom && message.senderId !== user!.userId)
+        triggerNewmessage((prev) => prev + 1)
     })
 
     return () => {
       socket.off('chatMessage')
     }
-  }, [socket])
+  }, [socket, user])
 
   // ===================== Auto scroll to bottom =====================
+  const scrollToBottom = useCallback(() => {
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTo(0, chatBoxRef.current.scrollHeight)
+    }
+  }, [])
+
   useEffect(() => {
     if (isAtBottom && chatBoxRef.current) {
-      chatBoxRef.current!.scrollTo(0, chatBoxRef.current!.scrollHeight)
+      scrollToBottom()
     }
-  }, [isAtBottom, chatItems])
+  }, [isAtBottom, chatItems, scrollToBottom])
 
   const value = useMemo(
     () => ({
       chatItems,
       chatBoxRef,
+      newMessageNoti,
+      scrollToBottom,
     }),
-    [chatItems, chatBoxRef],
+    [chatItems, chatBoxRef, newMessageNoti, scrollToBottom],
   )
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>

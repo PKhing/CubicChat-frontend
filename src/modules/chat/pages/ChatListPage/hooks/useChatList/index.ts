@@ -1,6 +1,10 @@
 import { useRoom } from 'common/context/RoomContext'
 import { useUser } from 'common/context/UserContext'
-import { GetGroupsDto, GetRecentGroupsDto } from 'common/types/dtos/group.types'
+import {
+  ChatRoomIdDto,
+  GetGroupsDto,
+  GetRecentGroupsDto,
+} from 'common/types/dtos/group.types'
 import { GetUsersDto } from 'common/types/dtos/user.types'
 import { apiClient } from 'common/utils/api/axiosInstance'
 import { IChatListItem } from 'modules/chat/components/ChatListItem/types'
@@ -64,12 +68,9 @@ const useChatList = (query: string) => {
   )
 
   const handleStartDm = useCallback(
-    (userId: string) => {
-      // TODO: Call API and get chat id from response
-      alert(`Chat ${userId}`)
-
-      const CHAT_ID = String(Math.floor(Math.random() * 100000))
-      openRoom(CHAT_ID)
+    async (userId: string) => {
+      const res = await apiClient.get<ChatRoomIdDto>(`/users/${userId}/chat`)
+      openRoom(res.data.chatRoomId)
     },
     [openRoom],
   )

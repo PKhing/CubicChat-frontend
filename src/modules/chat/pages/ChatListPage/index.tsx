@@ -16,7 +16,6 @@ const ChatListPage = () => {
   const { isMobile } = useResponsive()
   const { handleQueryChange, searchQuery, query } = useSearch()
   const { currentTab, setTab, chatListItems, handleClick } = useChatList(query)
-
   const [isModalOpen, setModalOpen] = React.useState(false)
 
   return (

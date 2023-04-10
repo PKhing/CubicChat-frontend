@@ -25,15 +25,12 @@ const SocketProvider = ({ children }: PropsWithChildren<unknown>) => {
   > | null>(null)
 
   useEffect(() => {
-    // const socket = io('localhost:5173/hello' + API_BASE_URL)
     const socket = io({ path: API_BASE_URL + '/socket.io' })
 
     setSocket(socket)
 
-    socket.on('connect', () => {
-      console.log(socket.id)
-      console.log('here')
-    })
+    // socket.on('connect', () => {
+    // })
 
     return () => {
       socket.disconnect()
