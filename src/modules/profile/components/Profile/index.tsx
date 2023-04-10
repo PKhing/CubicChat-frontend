@@ -12,12 +12,12 @@ import { ProfileContainer } from './styled'
 const Profile = () => {
   const [isModalOpen, setModalOpen] = React.useState(false)
   const { user } = useUser()
-  const { username, profileImageUrl } = user!
+  const { username, profileImage } = user!
   const { handleLogout } = useLogout()
 
   return (
     <ProfileContainer>
-      <ProfileImage src={profileImageUrl} name={username} />
+      <ProfileImage src={profileImage} name={username} />
       <Typography
         variant="h4"
         css={{ padding: '0 14px', flexGrow: 1, textAlign: 'left' }}

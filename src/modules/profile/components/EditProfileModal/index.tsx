@@ -10,7 +10,7 @@ const EditProfileModal = ({ onClose }: EditProfileModalProps) => {
   const {
     username,
     handleUsernameChange,
-    profileImageUrl,
+    profileImage,
     randomProfileImageUrl,
     handleSubmit,
     errorMessage,
@@ -22,7 +22,7 @@ const EditProfileModal = ({ onClose }: EditProfileModalProps) => {
       onClose={onClose}
       onChange={handleUsernameChange}
       value={username}
-      profileImageUrl={profileImageUrl}
+      profileImage={profileImage}
       textfieldLabel="Nickname"
       helperText={errorMessage}
       actions={

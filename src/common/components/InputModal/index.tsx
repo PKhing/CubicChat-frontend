@@ -14,7 +14,7 @@ import { InputModalProps } from './types'
 
 const InputModal = ({
   onClose,
-  profileImageUrl,
+  profileImage,
   value,
   onChange,
   actions,
@@ -31,7 +31,7 @@ const InputModal = ({
           </Typography>
           <div>
             <FormContainer>
-              <ProfileImage src={profileImageUrl} name={value} />
+              <ProfileImage src={profileImage} name={value} />
               <TextField
                 label={textfieldLabel}
                 value={value}

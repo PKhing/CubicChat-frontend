@@ -1,10 +1,11 @@
 import { styled } from 'config/theme'
 
-export const ChatInputContainer = styled('div', {
+export const ChatInputContainer = styled('form', {
   borderTop: '1px solid $primary600',
   display: 'flex',
   height: '120px',
   alignItems: 'flex-end',
+  flexShrink: 0,
 })
 
 export const ButtonContainer = styled('div', {

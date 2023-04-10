@@ -1,10 +1,10 @@
 import { useUser } from 'common/context/UserContext'
+import { apiClient } from 'common/utils/api/axiosInstance'
 import { ChangeEvent, useCallback, useState } from 'react'
 
 const useEditProfile = (onClose: () => void) => {
-  const [username, setUsername] = useState<string>('')
-  const [profileImageUrl, setProfileImageUrl] = useState<string>('')
-  const { refetch } = useUser()
+  const { user, setUser } = useUser()
+  const [username, setUsername] = useState<string>(user!.username)
 
   const [errorMessage, setErrorMessage] = useState<null | string>(null)
 
@@ -25,18 +25,18 @@ const useEditProfile = (onClose: () => void) => {
     [validate],
   )
 
-  const randomProfileImageUrl = useCallback(() => {
-    // TODO: Implement random image
-    const random = Math.floor(Math.random() * 1000)
-    setProfileImageUrl(`https://picsum.photos/id/${random}/200/200`)
-  }, [])
+  const randomProfileImageUrl = useCallback(async () => {
+    const res = await apiClient.put('/profile/image-random')
+    const { profileImage } = res.data
 
-  const handleSubmit = () => {
+    setUser({ ...user!, profileImage })
+  }, [setUser, user])
+
+  const handleSubmit = async () => {
     if (validate(username)) {
-      // TODO: Implement submit
-      alert('Submitted: ' + username)
+      await apiClient.put('/profile/username', { username })
 
-      refetch()
+      setUser({ ...user!, username })
       onClose()
     }
   }
@@ -44,7 +44,7 @@ const useEditProfile = (onClose: () => void) => {
   return {
     username,
     handleUsernameChange,
-    profileImageUrl,
+    profileImage: user!.profileImage,
     randomProfileImageUrl,
     handleSubmit,
     errorMessage,

@@ -1,19 +1,23 @@
 import { apiClient } from 'common/utils/api/axiosInstance'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const MockLogin = () => {
-  const handleLogin1 = () => {
-    apiClient.post('/auth/login', {
+  const navigate = useNavigate()
+  const handleLogin1 = async () => {
+    await apiClient.post('/auth/login', {
       email: 'mafumafu@gmail.com',
       password: 'password',
     })
+    navigate('/')
   }
 
-  const handleLogin2 = () => {
-    apiClient.post('/auth/login', {
+  const handleLogin2 = async () => {
+    await apiClient.post('/auth/login', {
       email: 'soraru@gmail.com',
       password: 'password',
     })
+    navigate('/')
   }
 
   const handleLogUser = async () => {

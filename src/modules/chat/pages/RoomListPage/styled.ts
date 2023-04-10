@@ -6,6 +6,7 @@ export const PageContainer = styled('div', {
   padding: '15px',
   gap: '20px',
   maxHeight: '100vh',
+  height: '100vh',
   boxSizing: 'border-box',
   borderRight: '1px solid $primary600',
   maxWidth: '380px',
@@ -23,7 +24,7 @@ export const TextFieldContainer = styled('div', {
   paddingLeft: '10px',
 })
 
-export const ChatListContainer = styled('div', {
+export const RoomListContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '10px',

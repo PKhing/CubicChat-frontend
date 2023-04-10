@@ -1,23 +1,22 @@
-import { styled } from 'config/theme'
+import { CSS, styled } from 'config/theme'
 
-export const ProfileContainer = styled('div', {
-  backgroundColor: '$primary700',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+const profileStyle: CSS = {
   height: '55px',
   width: '55px',
   minWidth: '55px',
+  backgroundColor: '$primary700',
   '@md': {
     height: '45px',
     width: '45px',
     minWidth: '45px',
   },
+}
+
+export const ProfileContainer = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  ...profileStyle,
 })
 
-export const StyledProfileImage = styled('img', {
-  height: '55px',
-  '@md': {
-    height: '45px',
-  },
-})
+export const StyledProfileImage = styled('img', profileStyle)

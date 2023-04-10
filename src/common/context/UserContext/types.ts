@@ -4,4 +4,5 @@ export interface IUserContext {
   user: User | null
   refetch: () => Promise<void>
   reset: () => void
+  setUser: (user: User | null) => void
 }
