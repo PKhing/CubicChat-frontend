@@ -16,4 +16,5 @@ export interface ChatMessageDto {
   messageType: MessageType
   content: string
   timestamp: string
+  messageId: string
 }

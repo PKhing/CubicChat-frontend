@@ -39,7 +39,7 @@ const ChatItem = (props: IChatItem) => {
         </div>
         {message.map(({ content, timestamp }: IMessage) => (
           <MessageContainer key={timestamp} isOwner={isOwner}>
-            <Typography>{content}</Typography>
+            <Typography css={{ whiteSpace: 'pre-line' }}>{content}</Typography>
           </MessageContainer>
         ))}
       </MessagesContainer>
