@@ -24,7 +24,7 @@ export const TextFieldContainer = styled('div', {
   paddingLeft: '10px',
 })
 
-export const ChatListContainer = styled('div', {
+export const RoomListContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '10px',

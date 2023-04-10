@@ -1,15 +1,13 @@
+import { IRoom, RoomListType } from 'common/types/base'
 import { GetGroupsDto, GetRecentGroupsDto } from 'common/types/dtos/group.types'
 import { GetUsersDto } from 'common/types/dtos/user.types'
 import { apiClient } from 'common/utils/api/axiosInstance'
-import { IChatListItem } from 'modules/chat/components/ChatListItem/types'
 
-import { TabType } from '../../constants'
-
-export const getChatListItems = async (
-  type: TabType,
+export const getRooms = async (
+  type: RoomListType,
   userId: string,
-): Promise<IChatListItem[]> => {
-  if (type === TabType.USER) {
+): Promise<IRoom[]> => {
+  if (type === RoomListType.USER) {
     const res = await apiClient.get<GetUsersDto>('/users')
     const users = res.data.users.map(({ userId, username, profileImage }) => ({
       id: userId,
@@ -17,7 +15,7 @@ export const getChatListItems = async (
       imageUrl: profileImage,
     }))
     return users.filter(({ id }) => id != userId)
-  } else if (type === TabType.GROUP) {
+  } else if (type === RoomListType.GROUP) {
     const res = await apiClient.get<GetGroupsDto>('/groups')
     return res.data.groups.map(({ chatRoomId, name }) => ({
       id: chatRoomId,

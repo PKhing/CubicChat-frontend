@@ -26,3 +26,15 @@ export interface IMessage {
   content: string
   timestamp: string
 }
+
+export interface IRoom {
+  id: string
+  name: string
+  imageUrl?: string
+}
+
+export enum RoomListType {
+  USER = 'USER',
+  GROUP = 'GROUP',
+  RECENT = 'RECENT',
+}

@@ -1,16 +1,16 @@
 import Button from 'common/components/Button'
 import Typography from 'common/components/Typography'
-import { TabType } from 'modules/chat/pages/ChatListPage/constants'
+import { RoomListType } from 'common/types/base'
 import ProfileImage from 'modules/profile/components/ProfileImage'
 import React from 'react'
 
 import { ItemContainer } from './styled'
-import { ChatListItemProps } from './types'
+import { RoomProps } from './types'
 
-const ChatListItem = ({ chatRoom, onClick, currentTab }: ChatListItemProps) => {
+const Room = ({ chatRoom, onClick, currentTab }: RoomProps) => {
   const { name, imageUrl, id } = chatRoom
 
-  const isRecent = currentTab === TabType.RECENT
+  const isRecent = currentTab === RoomListType.RECENT
 
   return (
     <ItemContainer
@@ -23,7 +23,7 @@ const ChatListItem = ({ chatRoom, onClick, currentTab }: ChatListItemProps) => {
       </Typography>
       {!isRecent && (
         <Button
-          label={currentTab === TabType.GROUP ? 'Join' : 'Chat'}
+          label={currentTab === RoomListType.GROUP ? 'Join' : 'Chat'}
           onClick={() => onClick(id)}
         />
       )}
@@ -31,4 +31,4 @@ const ChatListItem = ({ chatRoom, onClick, currentTab }: ChatListItemProps) => {
   )
 }
 
-export default ChatListItem
+export default Room

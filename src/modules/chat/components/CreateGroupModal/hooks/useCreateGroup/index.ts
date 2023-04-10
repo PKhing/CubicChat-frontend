@@ -1,9 +1,14 @@
+import { useRoomList } from 'common/context/RoomListContext'
+import { useSocket } from 'common/context/SocketContext'
+import { ChatRoomIdDto } from 'common/types/dtos/group.types'
 import { apiClient } from 'common/utils/api/axiosInstance'
 import { useCallback, useState } from 'react'
 
 const useCreateGroup = (onClose: () => void) => {
   const [groupName, setGroupName] = useState('')
   const [errorMessage, setErrorMessage] = useState<null | string>(null)
+  const { refetch } = useRoomList()
+  const { socket } = useSocket()
 
   const validate = useCallback((groupName: string) => {
     if (groupName === '') {
@@ -25,11 +30,13 @@ const useCreateGroup = (onClose: () => void) => {
 
   const handleCreateGroup = async () => {
     if (validate(groupName)) {
-      await apiClient.post('/groups', { name: groupName })
+      const res = await apiClient.post<ChatRoomIdDto>('/groups', {
+        name: groupName,
+      })
 
-      // will fix later
-      window.location.reload()
+      socket.emit('addRoom', res.data.chatRoomId)
 
+      refetch()
       onClose()
     }
   }

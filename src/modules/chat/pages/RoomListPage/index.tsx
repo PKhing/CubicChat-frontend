@@ -1,21 +1,21 @@
 import Button from 'common/components/Button'
 import TextField from 'common/components/TextField'
+import { useRoomList } from 'common/context/RoomListContext'
 import useResponsive from 'common/hooks/useResponsive'
-import ChatListItem from 'modules/chat/components/ChatListItem'
-import ChatListTab from 'modules/chat/components/ChatListTab'
 import CreateGroupModal from 'modules/chat/components/CreateGroupModal'
+import Room from 'modules/chat/components/Room'
+import RoomListTab from 'modules/chat/components/RoomListTab'
 import Profile from 'modules/profile/components/Profile'
 import React from 'react'
 import { BsPlusSquare, BsSearch } from 'react-icons/bs'
 
-import useChatList from './hooks/useChatList'
 import useSearch from './hooks/useSearch'
-import { ChatListContainer, PageContainer, TextFieldContainer } from './styled'
+import { PageContainer, RoomListContainer, TextFieldContainer } from './styled'
 
-const ChatListPage = () => {
+const RoomListPage = () => {
   const { isMobile } = useResponsive()
-  const { handleQueryChange, searchQuery, query } = useSearch()
-  const { currentTab, setTab, chatListItems, handleClick } = useChatList(query)
+  const { handleQueryChange, searchQuery } = useSearch()
+  const { type, handleTypeChange, rooms, handleClick } = useRoomList()
   const [isModalOpen, setModalOpen] = React.useState(false)
 
   return (
@@ -34,21 +34,21 @@ const ChatListPage = () => {
           value={searchQuery}
         />
       </TextFieldContainer>
-      <ChatListTab currentTab={currentTab} setTab={setTab} />
-      <ChatListContainer>
-        {chatListItems.map((chatListItem) => (
-          <ChatListItem
-            key={chatListItem.id}
-            chatRoom={chatListItem}
+      <RoomListTab type={type} setType={handleTypeChange} />
+      <RoomListContainer>
+        {rooms.map((room) => (
+          <Room
+            key={room.id}
+            chatRoom={room}
             onClick={handleClick}
-            currentTab={currentTab}
+            currentTab={type}
           />
         ))}
-      </ChatListContainer>
+      </RoomListContainer>
 
       {isModalOpen && <CreateGroupModal onClose={() => setModalOpen(false)} />}
     </PageContainer>
   )
 }
 
-export default ChatListPage
+export default RoomListPage

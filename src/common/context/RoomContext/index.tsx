@@ -8,6 +8,7 @@ import React, {
 } from 'react'
 
 import ChatProvider from '../ChatContext'
+import RoomListProvider from '../RoomListContext'
 import { useSocket } from '../SocketContext'
 import { IRoomContext } from './type'
 
@@ -45,7 +46,9 @@ const RoomProvider = ({ children }: PropsWithChildren<unknown>) => {
 
   return (
     <RoomContext.Provider value={value}>
-      <ChatProvider>{children}</ChatProvider>
+      <RoomListProvider>
+        <ChatProvider>{children}</ChatProvider>
+      </RoomListProvider>
     </RoomContext.Provider>
   )
 }
