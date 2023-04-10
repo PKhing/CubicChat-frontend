@@ -23,9 +23,9 @@ export const getRooms = async (
     }))
   } else {
     const res = await apiClient.get<GetRecentGroupsDto>('/groups/recent')
-    return res.data.groups.map(({ chatRoomId, name }) => ({
+    return res.data.groups.map(({ chatRoomId, ...rest }) => ({
       id: chatRoomId,
-      name,
+      ...rest,
     }))
   }
 }

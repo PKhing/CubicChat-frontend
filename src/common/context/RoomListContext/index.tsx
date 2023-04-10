@@ -31,10 +31,15 @@ const RoomListProvider = ({ children }: PropsWithChildren<unknown>) => {
 
   // ============ Change tab ============
   const [type, setType] = useState<RoomListType>(RoomListType.USER)
-  const handleTypeChange = useCallback((type: RoomListType) => {
-    setRooms([])
-    setType(type)
-  }, [])
+  const handleTypeChange = useCallback(
+    (newType: RoomListType) => {
+      if (type !== newType) {
+        setRooms([])
+        setType(newType)
+      }
+    },
+    [type],
+  )
 
   // ============ Fetch when tab and query change ============
   const refetch = useCallback(async () => {
