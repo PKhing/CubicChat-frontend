@@ -25,6 +25,7 @@ const SocketProvider = ({ children }: PropsWithChildren<unknown>) => {
   > | null>(null)
 
   useEffect(() => {
+    console.log('baseurl', API_BASE_URL + '/socket.io')
     const socket = io({ path: API_BASE_URL + '/socket.io' })
 
     setSocket(socket)
