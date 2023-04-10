@@ -1,5 +1,5 @@
 import Button from 'common/components/Button'
-import { useChat } from 'common/context/ChatContext'
+import { useRoom } from 'common/context/RoomContext'
 import { useSocket } from 'common/context/SocketContext'
 import { MessageType } from 'common/types/base'
 import React from 'react'
@@ -8,11 +8,11 @@ import { BsSend, BsSticky } from 'react-icons/bs'
 import { ButtonContainer, ChatInputContainer, StyledTextArea } from './styled'
 
 const ChatInput = () => {
-  const { chatId } = useChat()
+  const { roomId } = useRoom()
   const { socket } = useSocket()
 
   const handleSend = () => {
-    socket.emit('chatMessage', chatId!, MessageType.TEXT, 'Hello')
+    socket.emit('chatMessage', roomId!, MessageType.TEXT, 'Hello')
   }
 
   return (

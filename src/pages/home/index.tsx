@@ -1,4 +1,4 @@
-import ChatProvider, { useChat } from 'common/context/ChatContext'
+import RoomProvider, { useRoom } from 'common/context/RoomContext'
 import SocketProvider from 'common/context/SocketContext'
 import withGuard from 'common/hoc/withGuard'
 import useResponsive from 'common/hooks/useResponsive'
@@ -8,25 +8,25 @@ import ChatPage from 'modules/chat/pages/ChatPage'
 import React from 'react'
 
 const Home = () => {
-  const { isChatOpen } = useChat()
+  const { isRoomOpen } = useRoom()
   const { isMobile } = useResponsive()
 
   if (isMobile) {
-    return isChatOpen ? <ChatPage /> : <ChatListPage />
+    return isRoomOpen ? <ChatPage /> : <ChatListPage />
   }
   return (
     <div style={{ display: 'flex' }}>
       <ChatListPage />
-      {isChatOpen ? <ChatPage /> : <ChatNotFound />}
+      {isRoomOpen ? <ChatPage /> : <ChatNotFound />}
     </div>
   )
 }
 
 const WithProvider = () => (
   <SocketProvider>
-    <ChatProvider>
+    <RoomProvider>
       <Home />
-    </ChatProvider>
+    </RoomProvider>
   </SocketProvider>
 )
 

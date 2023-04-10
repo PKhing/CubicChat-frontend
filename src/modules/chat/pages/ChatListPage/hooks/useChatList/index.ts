@@ -1,4 +1,4 @@
-import { useChat } from 'common/context/ChatContext'
+import { useRoom } from 'common/context/RoomContext'
 import { useUser } from 'common/context/UserContext'
 import { GetGroupsDto, GetRecentGroupsDto } from 'common/types/dtos/group.types'
 import { GetUsersDto } from 'common/types/dtos/user.types'
@@ -11,7 +11,7 @@ import { TabType } from '../../constants'
 const useChatList = (query: string) => {
   const [currentTab, setTab] = useState<TabType>(TabType.USER)
   const [chatListItems, setChatListItems] = useState<IChatListItem[]>([])
-  const { openChat } = useChat()
+  const { openRoom } = useRoom()
   const { user } = useUser()
 
   const handleTabChange = useCallback((tab: TabType) => {
@@ -56,11 +56,11 @@ const useChatList = (query: string) => {
   }, [currentTab, getChatListItems, query])
 
   const handleJoinGroup = useCallback(
-    async (chatId: string) => {
-      await apiClient.put(`/groups/${chatId}/join`)
-      openChat(chatId)
+    async (roomId: string) => {
+      await apiClient.put(`/groups/${roomId}/join`)
+      openRoom(roomId)
     },
-    [openChat],
+    [openRoom],
   )
 
   const handleStartDm = useCallback(
@@ -69,15 +69,15 @@ const useChatList = (query: string) => {
       alert(`Chat ${userId}`)
 
       const CHAT_ID = String(Math.floor(Math.random() * 100000))
-      openChat(CHAT_ID)
+      openRoom(CHAT_ID)
     },
-    [openChat],
+    [openRoom],
   )
 
   const handlers = {
     [TabType.GROUP]: handleJoinGroup,
     [TabType.USER]: handleStartDm,
-    [TabType.RECENT]: openChat,
+    [TabType.RECENT]: openRoom,
   }
 
   return {

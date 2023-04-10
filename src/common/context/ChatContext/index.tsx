@@ -3,14 +3,13 @@ import { apiClient } from 'common/utils/api/axiosInstance'
 import React, {
   createContext,
   PropsWithChildren,
-  useCallback,
   useContext,
   useEffect,
   useMemo,
   useRef,
-  useState,
 } from 'react'
 
+import { useRoom } from '../RoomContext'
 import { useSocket } from '../SocketContext'
 import { IChatContext } from './type'
 import { appendBack, isAtBottomOfDiv } from './utils'
@@ -20,38 +19,23 @@ const ChatContext = createContext<IChatContext>({} as IChatContext)
 export const useChat = () => useContext(ChatContext)
 
 const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
-  const [chatId, setChatId] = useState<string | null>(null)
   const { socket } = useSocket()
   const chatBoxRef = useRef<HTMLDivElement>(null)
-
-  // ===================== Chat =====================
-  const closeChat = useCallback(() => {
-    socket.emit('leave', chatId!)
-    setChatId(null)
-  }, [chatId, socket])
-
-  const openChat = useCallback(
-    (newChatId: string) => {
-      if (chatId) closeChat()
-      setChatId(newChatId)
-      socket.emit('join', newChatId)
-    },
-    [chatId, closeChat, socket],
-  )
-
-  // ===================== Message =====================
   const [chatItems, setChatItems] = React.useState<IChatItem[]>([])
   const [isAtBottom, setIsAtBottom] = React.useState<boolean>(true)
+  const { roomId } = useRoom()
 
+  // ===================== Get History =====================
   useEffect(() => {
     const getChatHistory = async () => {
-      const res = await apiClient.get(`/chat/rooms/${chatId}/history`)
+      const res = await apiClient.get(`/chat/rooms/${roomId}/history`)
       console.log(res)
     }
     getChatHistory()
     setChatItems([])
-  }, [chatId])
+  }, [roomId])
 
+  // ===================== Listen on new message =====================
   useEffect(() => {
     socket.on('chatMessage', (message) => {
       setChatItems((chatItems) => appendBack(chatItems, message))
@@ -64,7 +48,7 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
     }
   }, [socket])
 
-  // scroll to bottom
+  // ===================== Auto scroll to bottom =====================
   useEffect(() => {
     if (isAtBottom && chatBoxRef.current) {
       chatBoxRef.current!.scrollTo(0, chatBoxRef.current!.scrollHeight)
@@ -73,14 +57,10 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
 
   const value = useMemo(
     () => ({
-      openChat,
-      closeChat,
-      isChatOpen: !!chatId,
-      chatId,
       chatItems,
       chatBoxRef,
     }),
-    [openChat, closeChat, chatId, chatItems, chatBoxRef],
+    [chatItems, chatBoxRef],
   )
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>
