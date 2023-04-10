@@ -25,8 +25,6 @@ const SocketProvider = ({ children }: PropsWithChildren<unknown>) => {
   > | null>(null)
 
   useEffect(() => {
-    console.log('baseurl', API_BASE_URL + '/socket.io')
-
     let socket: Socket
     if (import.meta.env.VITE_ENABLE_PROXY === 'true') {
       socket = io({ path: API_BASE_URL + '/socket.io' })
@@ -39,9 +37,9 @@ const SocketProvider = ({ children }: PropsWithChildren<unknown>) => {
     // socket.on('connect', () => {
     // })
 
-    return () => {
-      socket.disconnect()
-    }
+    // return () => {
+    //   socket.disconnect()
+    // }
   }, [])
 
   if (!socket) return null
