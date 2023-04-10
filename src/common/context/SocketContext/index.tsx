@@ -29,17 +29,17 @@ const SocketProvider = ({ children }: PropsWithChildren<unknown>) => {
     if (import.meta.env.VITE_ENABLE_PROXY === 'true') {
       socket = io({ path: API_BASE_URL + '/socket.io' })
     } else {
-      socket = io(API_BASE_URL)
+      socket = io('wss://cubicchat-api.pkhing.dev:3000/', {
+        withCredentials: true,
+        transports: ['websocket'],
+      })
     }
 
     setSocket(socket)
 
-    // socket.on('connect', () => {
-    // })
-
-    // return () => {
-    //   socket.disconnect()
-    // }
+    return () => {
+      socket.disconnect()
+    }
   }, [])
 
   if (!socket) return null
