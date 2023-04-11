@@ -63,14 +63,20 @@ const RoomListProvider = ({ children }: PropsWithChildren<unknown>) => {
   }, [socket])
 
   // ============ Listen on notify ============
+  const getRoomDetail = useCallback(async (roomId: string) => {
+    const res = await apiClient.get<IRoom>(`/groups/${roomId}/info`)
+    return res.data
+  }, [])
+
   useEffect(() => {
     if (type !== RoomListType.RECENT) return
 
-    socket.on('notify', (roomId: string) => {
+    socket.on('notify', async (roomId: string) => {
       const idx = rooms.findIndex((item) => item.id === roomId)
 
       if (idx === -1) {
-        // TODO: get new chat list item
+        const room = await getRoomDetail(roomId)
+        setRooms([room, ...rooms])
         return
       }
 
@@ -82,7 +88,7 @@ const RoomListProvider = ({ children }: PropsWithChildren<unknown>) => {
     return () => {
       socket.off('notify')
     }
-  }, [rooms, socket, type])
+  }, [getRoomDetail, rooms, socket, type])
 
   // ============ Handlers ============
 

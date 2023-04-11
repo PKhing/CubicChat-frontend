@@ -7,11 +7,13 @@ import { BsChevronLeft } from 'react-icons/bs'
 
 import ChatBox from '../../components/ChatBox'
 import ChatInput from '../../components/ChatInput'
+import useRoomName from './hooks/useRoomName'
 import { PageContainer, TitleContainer } from './styled'
 
 const ChatPage = () => {
   const { isMobile } = useResponsive()
   const { closeRoom } = useRoom()
+  const { roomName } = useRoomName()
 
   return (
     <PageContainer>
@@ -19,7 +21,7 @@ const ChatPage = () => {
         {isMobile && (
           <Button variant="text" icon={BsChevronLeft} onClick={closeRoom} />
         )}
-        <Typography variant="h3">Genshin Impact</Typography>
+        <Typography variant="h3">{roomName}</Typography>
       </TitleContainer>
       <ChatBox />
       <ChatInput />
