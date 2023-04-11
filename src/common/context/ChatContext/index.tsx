@@ -37,7 +37,6 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
 
   const fetchChatHistory = useCallback(
     async (roomId: string, oldestMessageId: string | null) => {
-      console.log('fetch')
       const res = await apiClient.get<GetChatHistoryDto>(
         `/chat/rooms/${roomId}/history`,
         {
@@ -128,6 +127,7 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
       currentScrollHeight !== chatBoxRef.current.scrollHeight
     ) {
       scrollToCurrent()
+      setCurrentScrollHeight(undefined)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatItems])

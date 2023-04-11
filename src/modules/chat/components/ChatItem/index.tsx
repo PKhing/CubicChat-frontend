@@ -1,6 +1,6 @@
 import Typography from 'common/components/Typography'
 import { useUser } from 'common/context/UserContext'
-import { IChatItem, IMessage } from 'common/types/base'
+import { IChatItem, IMessage, MessageType } from 'common/types/base'
 import ProfileImage from 'modules/profile/components/ProfileImage'
 import React from 'react'
 
@@ -8,6 +8,7 @@ import {
   ChatItemContainer,
   MessageContainer,
   MessagesContainer,
+  Sticker,
 } from './styled'
 
 const ChatItem = (props: IChatItem) => {
@@ -37,11 +38,17 @@ const ChatItem = (props: IChatItem) => {
               new Date(timestamp).toLocaleTimeString()}
           </Typography>
         </div>
-        {message.map(({ content, timestamp }: IMessage) => (
-          <MessageContainer key={timestamp} isOwner={isOwner}>
-            <Typography css={{ whiteSpace: 'pre-line' }}>{content}</Typography>
-          </MessageContainer>
-        ))}
+        {message.map(({ content, timestamp, messageType }: IMessage) => {
+          if (messageType === MessageType.STICKER)
+            return <Sticker key={timestamp} src={content} />
+          return (
+            <MessageContainer key={timestamp} isOwner={isOwner}>
+              <Typography css={{ whiteSpace: 'pre-line' }}>
+                {content}
+              </Typography>
+            </MessageContainer>
+          )
+        })}
       </MessagesContainer>
     </ChatItemContainer>
   )

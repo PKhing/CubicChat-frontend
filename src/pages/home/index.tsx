@@ -11,12 +11,9 @@ const Home = () => {
   const { isRoomOpen } = useRoom()
   const { isMobile } = useResponsive()
 
-  if (isMobile) {
-    return isRoomOpen ? <ChatPage /> : <RoomListPage />
-  }
   return (
     <div style={{ display: 'flex' }}>
-      <RoomListPage />
+      {!isMobile && <RoomListPage />}
       {isRoomOpen ? <ChatPage /> : <ChatNotFound />}
     </div>
   )

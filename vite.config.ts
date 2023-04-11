@@ -17,5 +17,8 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
+    optimizeDeps: {
+      exclude: ['react-outside-click-handle'],
+    },
   }
 })

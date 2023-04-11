@@ -8,7 +8,6 @@ export const ChatBoxContainer = styled('div', {
   flexDirection: 'column',
   maxHeight: '100%',
   overflowY: 'auto',
-  position: 'relative',
   overflowAnchor: 'auto',
   scrollbarGutter: 'stable',
 })
@@ -18,8 +17,8 @@ export const NewMessage = styled('div', {
   backgroundColor: '$primary600',
   padding: '3px 10px',
   alignItems: 'center',
-  cursor: 'pointer',
   position: 'absolute',
+  cursor: 'pointer',
   top: '0',
   left: '0',
   width: '100%',

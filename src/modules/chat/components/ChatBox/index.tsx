@@ -11,9 +11,13 @@ const ChatBox = () => {
   const { chatItems, chatBoxRef, newMessageNoti, scrollToBottom, fetchMore } =
     useChat()
   const [showNoti, setShowNoti] = React.useState(false)
+  const firstUpdate = React.useRef(true)
 
   useEffect(() => {
-    if (newMessageNoti === 0) return
+    if (firstUpdate.current) {
+      firstUpdate.current = false
+      return
+    }
     setShowNoti(true)
   }, [newMessageNoti])
 
@@ -32,22 +36,31 @@ const ChatBox = () => {
   }
 
   return (
-    <>
+    <div
+      style={{
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        maxHeight: '100%',
+        overflowY: 'auto',
+        position: 'relative',
+      }}
+    >
+      {showNoti && (
+        <NewMessage onClick={handleNewMessageClick}>
+          <Typography variant="body1" color="primary900">
+            New Message
+          </Typography>
+          <div style={{ flexGrow: 1 }} />
+          <BsChevronDown />
+        </NewMessage>
+      )}
       <ChatBoxContainer ref={chatBoxRef} onScroll={handleScroll}>
-        {showNoti && (
-          <NewMessage onClick={handleNewMessageClick}>
-            <Typography variant="body1" color="primary900">
-              New Message
-            </Typography>
-            <div style={{ flexGrow: 1 }} />
-            <BsChevronDown />
-          </NewMessage>
-        )}
         {chatItems.map((chatItem) => (
           <ChatItem key={chatItem.message[0].timestamp} {...chatItem} />
         ))}
       </ChatBoxContainer>
-    </>
+    </div>
   )
 }
 

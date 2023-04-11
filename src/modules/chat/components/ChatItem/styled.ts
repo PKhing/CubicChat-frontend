@@ -28,3 +28,13 @@ export const MessageContainer = styled('div', {
     isOwner: false,
   },
 })
+
+export const Sticker = styled('img', {
+  height: '100px',
+  width: '100px',
+  backgroundColor: '$primary700',
+  '@md': {
+    height: '80px',
+    width: '80px',
+  },
+})
