@@ -18,8 +18,12 @@ const ChatBox = () => {
       firstUpdate.current = false
       return
     }
+    if (isAtBottomOfDiv(chatBoxRef)) {
+      setShowNoti(false)
+      return
+    }
     setShowNoti(true)
-  }, [newMessageNoti])
+  }, [chatBoxRef, newMessageNoti])
 
   const handleScroll = () => {
     if (isAtBottomOfDiv(chatBoxRef)) {
