@@ -86,3 +86,11 @@ export const isAtBottomOfDiv = (ref: React.RefObject<HTMLDivElement>) => {
 
   return Math.abs(scrollHeight - clientHeight - scrollTop) <= 1
 }
+
+export const isAtTopOfDiv = (ref: React.RefObject<HTMLDivElement>) => {
+  if (!ref.current) return false
+
+  const { scrollTop } = ref.current
+
+  return scrollTop === 0
+}

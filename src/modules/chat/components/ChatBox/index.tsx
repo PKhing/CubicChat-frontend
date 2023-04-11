@@ -1,6 +1,6 @@
 import Typography from 'common/components/Typography'
 import { useChat } from 'common/context/ChatContext'
-import { isAtBottomOfDiv } from 'common/context/ChatContext/utils'
+import { isAtBottomOfDiv, isAtTopOfDiv } from 'common/context/ChatContext/utils'
 import React, { useEffect } from 'react'
 import { BsChevronDown } from 'react-icons/bs'
 
@@ -8,7 +8,8 @@ import ChatItem from '../ChatItem'
 import { ChatBoxContainer, NewMessage } from './styled'
 
 const ChatBox = () => {
-  const { chatItems, chatBoxRef, newMessageNoti, scrollToBottom } = useChat()
+  const { chatItems, chatBoxRef, newMessageNoti, scrollToBottom, fetchMore } =
+    useChat()
   const [showNoti, setShowNoti] = React.useState(false)
 
   useEffect(() => {
@@ -19,6 +20,9 @@ const ChatBox = () => {
   const handleScroll = () => {
     if (isAtBottomOfDiv(chatBoxRef)) {
       setShowNoti(false)
+    }
+    if (isAtTopOfDiv(chatBoxRef)) {
+      fetchMore()
     }
   }
 

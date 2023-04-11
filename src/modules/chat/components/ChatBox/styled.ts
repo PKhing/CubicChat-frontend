@@ -9,6 +9,8 @@ export const ChatBoxContainer = styled('div', {
   maxHeight: '100%',
   overflowY: 'auto',
   position: 'relative',
+  overflowAnchor: 'auto',
+  scrollbarGutter: 'stable',
 })
 
 export const NewMessage = styled('div', {

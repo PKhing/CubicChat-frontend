@@ -5,4 +5,6 @@ export interface IChatContext {
   chatBoxRef: React.RefObject<HTMLDivElement>
   newMessageNoti: number
   scrollToBottom: () => void
+  fetchMore: () => Promise<void>
+  isLastPage: boolean
 }
