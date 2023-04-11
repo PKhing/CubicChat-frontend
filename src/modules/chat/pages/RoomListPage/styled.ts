@@ -13,6 +13,7 @@ export const PageContainer = styled('div', {
   '@md': {
     borderRight: 'none',
     maxWidth: '100%',
+    flexGrow: 1,
   },
 })
 

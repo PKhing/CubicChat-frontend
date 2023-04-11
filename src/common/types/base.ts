@@ -25,6 +25,7 @@ export interface IMessage {
   messageType: MessageType
   content: string
   timestamp: string
+  messageId: string
 }
 
 export interface IRoom {

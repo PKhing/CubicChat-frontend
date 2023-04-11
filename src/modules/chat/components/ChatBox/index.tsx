@@ -10,9 +10,9 @@ import { ChatBoxContainer, NewMessage } from './styled'
 const ChatBox = () => {
   const { chatItems, chatBoxRef, newMessageNoti, scrollToBottom, fetchMore } =
     useChat()
+
   const [showNoti, setShowNoti] = React.useState(false)
   const firstUpdate = React.useRef(true)
-
   useEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false
@@ -57,7 +57,7 @@ const ChatBox = () => {
       )}
       <ChatBoxContainer ref={chatBoxRef} onScroll={handleScroll}>
         {chatItems.map((chatItem) => (
-          <ChatItem key={chatItem.message[0].timestamp} {...chatItem} />
+          <ChatItem key={chatItem.message[0].messageId} {...chatItem} />
         ))}
       </ChatBoxContainer>
     </div>

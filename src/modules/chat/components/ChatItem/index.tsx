@@ -38,11 +38,11 @@ const ChatItem = (props: IChatItem) => {
               new Date(timestamp).toLocaleTimeString()}
           </Typography>
         </div>
-        {message.map(({ content, timestamp, messageType }: IMessage) => {
+        {message.map(({ content, messageId, messageType }: IMessage) => {
           if (messageType === MessageType.STICKER)
-            return <Sticker key={timestamp} src={content} />
+            return <Sticker key={messageId} src={content} />
           return (
-            <MessageContainer key={timestamp} isOwner={isOwner}>
+            <MessageContainer key={messageId} isOwner={isOwner}>
               <Typography css={{ whiteSpace: 'pre-line' }}>
                 {content}
               </Typography>

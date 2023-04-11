@@ -14,7 +14,13 @@ const Home = () => {
   return (
     <div style={{ display: 'flex' }}>
       {!isMobile && <RoomListPage />}
-      {isRoomOpen ? <ChatPage /> : <ChatNotFound />}
+      {isRoomOpen ? (
+        <ChatPage />
+      ) : isMobile ? (
+        <RoomListPage />
+      ) : (
+        <ChatNotFound />
+      )}
     </div>
   )
 }
