@@ -3,7 +3,7 @@ import { apiClient } from 'common/utils/api/axiosInstance'
 import { FormEventHandler, useCallback } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useSnackbar } from 'react-simple-snackbar'
+import { SnackbarOptions, useSnackbar } from 'react-simple-snackbar'
 
 import { ILoginSchemaType, LoginSchema } from './schema'
 
@@ -13,7 +13,7 @@ const useLoginForm = () => {
     resolver: zodResolver(LoginSchema),
   })
 
-  const options = {
+  const options: SnackbarOptions = {
     position: 'top-center',
     style: {
       backgroundColor: 'snow',
