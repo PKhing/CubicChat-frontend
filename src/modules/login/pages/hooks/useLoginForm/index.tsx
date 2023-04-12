@@ -3,6 +3,7 @@ import { apiClient } from 'common/utils/api/axiosInstance'
 import { FormEventHandler, useCallback } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { useSnackbar } from 'react-simple-snackbar'
 
 import { ILoginSchemaType, LoginSchema } from './schema'
 
@@ -12,7 +13,24 @@ const useLoginForm = () => {
     resolver: zodResolver(LoginSchema),
   })
 
+  const options = {
+    position: 'top-center',
+    style: {
+      backgroundColor: 'snow',
+      border: '5px solid red',
+      color: 'black',
+      fontFamily: 'Poppins, Prompt, sans-serif',
+      fontSize: '20px',
+      textAlign: 'center',
+    },
+    closeStyle: {
+      color: 'lightcoral',
+      fontSize: '16px',
+    },
+  }
+
   const navigate = useNavigate()
+  const [openSnackbar] = useSnackbar(options)
 
   const handleSuccess: SubmitHandler<ILoginSchemaType> = useCallback(
     async (data) => {
@@ -20,10 +38,10 @@ const useLoginForm = () => {
         await apiClient.post('auth/login', data)
         navigate('/')
       } catch (err) {
-        window.alert('Wrong email or password')
+        openSnackbar('Wrong email or password')
       }
     },
-    [navigate],
+    [navigate, openSnackbar],
   )
 
   const handleClickSubmit: FormEventHandler<HTMLFormElement> =
