@@ -3,7 +3,8 @@ import { styled } from 'config/theme'
 export const PageContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  height: '100vh',
+  height: '100dvh',
+  maxHeight: '100dvh',
   flexGrow: 1,
 })
 
