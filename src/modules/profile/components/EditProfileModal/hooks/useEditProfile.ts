@@ -8,6 +8,20 @@ const useEditProfile = (onClose: () => void) => {
 
   const [errorMessage, setErrorMessage] = useState<null | string>(null)
 
+  const [isProfileChanged, setIsProfileChanged] = useState<boolean>(false)
+
+  const handleClose = useCallback(
+    (isChanged?: boolean) => {
+      console.log(isChanged, isProfileChanged)
+      if (isChanged === true || isProfileChanged) {
+        window.location.reload()
+      } else {
+        onClose()
+      }
+    },
+    [isProfileChanged, onClose],
+  )
+
   const validate = useCallback((username: string) => {
     if (username === '') {
       setErrorMessage('Nickname is required')
@@ -30,6 +44,7 @@ const useEditProfile = (onClose: () => void) => {
     const { profileImage } = res.data
 
     setUser({ ...user!, profileImage })
+    setIsProfileChanged(true)
   }, [setUser, user])
 
   const handleSubmit = async () => {
@@ -37,7 +52,8 @@ const useEditProfile = (onClose: () => void) => {
       await apiClient.put('/profile/username', { username })
 
       setUser({ ...user!, username })
-      onClose()
+      setIsProfileChanged(true)
+      handleClose(true)
     }
   }
 
@@ -48,6 +64,7 @@ const useEditProfile = (onClose: () => void) => {
     randomProfileImageUrl,
     handleSubmit,
     errorMessage,
+    handleClose,
   }
 }
 

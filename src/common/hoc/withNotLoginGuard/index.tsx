@@ -9,12 +9,12 @@ const withGuard = (WrappedComponent: React.ComponentType) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-      if (!user) {
-        navigate('/login', { replace: true })
+      if (user) {
+        navigate('/', { replace: true })
       }
     }, [navigate, user])
 
-    if (!user) {
+    if (user) {
       return null
     }
     return <WrappedComponent {...props} />

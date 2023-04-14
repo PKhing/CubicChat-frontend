@@ -14,12 +14,13 @@ const EditProfileModal = ({ onClose }: EditProfileModalProps) => {
     randomProfileImageUrl,
     handleSubmit,
     errorMessage,
+    handleClose,
   } = useEditProfile(onClose)
 
   return (
     <InputModal
       title="Edit Profile"
-      onClose={onClose}
+      onClose={handleClose}
       onChange={handleUsernameChange}
       value={username}
       profileImage={profileImage}
