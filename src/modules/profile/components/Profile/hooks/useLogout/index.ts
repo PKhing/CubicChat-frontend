@@ -5,7 +5,7 @@ import { useCallback } from 'react'
 const useLogout = () => {
   const { reset } = useUser()
   const handleLogout = useCallback(async () => {
-    await apiClient.get('/logout')
+    await apiClient.get('/auth/logout')
 
     reset()
   }, [reset])
