@@ -35,7 +35,7 @@ const SocketProvider = ({ children }: PropsWithChildren<unknown>) => {
         },
       })
     } else {
-      socket = io(import.meta.env.VITE_PROXY_BASE_URL, {
+      socket = io('wss://cubicchat-api.pkhing.dev:3000/', {
         withCredentials: true,
         transports: ['websocket'],
         extraHeaders: {
