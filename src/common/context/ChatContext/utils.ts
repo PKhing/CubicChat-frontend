@@ -1,5 +1,6 @@
 import { IChatItem } from 'common/types/base'
 import { ChatMessageDto } from 'common/types/dtos/chat.types'
+import uuid from 'react-uuid'
 
 export const appendFront = (
   chatItems: IChatItem[],
@@ -22,6 +23,7 @@ export const appendFront = (
       senderId,
       profileImage,
       message: [newMessage],
+      id: uuid(),
     },
     ...chatItems,
   ]
@@ -49,6 +51,7 @@ export const appendBack = (
       senderId,
       profileImage,
       message: [newMessage],
+      id: uuid(),
     },
   ]
 }

@@ -19,6 +19,7 @@ export interface IChatItem {
   profileImage: string
   senderId: string
   message: IMessage[]
+  id: string
 }
 
 export interface IMessage {

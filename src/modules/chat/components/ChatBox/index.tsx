@@ -61,7 +61,7 @@ const ChatBox = () => {
       )}
       <ChatBoxContainer ref={chatBoxRef} onScroll={handleScroll}>
         {chatItems.map((chatItem) => (
-          <ChatItem key={chatItem.message[0].messageId} {...chatItem} />
+          <ChatItem key={chatItem.id} {...chatItem} />
         ))}
       </ChatBoxContainer>
     </div>
