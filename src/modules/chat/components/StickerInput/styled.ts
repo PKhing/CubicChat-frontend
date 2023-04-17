@@ -16,7 +16,6 @@ export const Sticker = styled('img', {
   height: '55px',
   width: '55px',
   minWidth: '55px',
-  backgroundColor: '$primary700',
   cursor: 'pointer',
   '@md': {
     height: '45px',
