@@ -37,6 +37,7 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
 
   const fetchChatHistory = useCallback(
     async (roomId: string, oldestMessageId: string | null) => {
+      setFetching(true)
       const res = await apiClient.get<GetChatHistoryDto>(
         `/chat/rooms/${roomId}/history`,
         {
@@ -59,21 +60,21 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
         }
         return chatItems
       })
+      setFetching(false)
     },
     [],
   )
 
   const fetchMore = useCallback(async () => {
     if (isFetching || isLastPage) return
-    setFetching(true)
     setCurrentScrollHeight(chatBoxRef.current?.scrollHeight)
     setIsAtBottom(isAtBottomOfDiv(chatBoxRef))
     await fetchChatHistory(roomId!, oldestMessageId)
-    setFetching(false)
   }, [fetchChatHistory, isFetching, isLastPage, oldestMessageId, roomId])
 
   useEffect(() => {
     if (roomId) {
+      setLastPage(false)
       setChatItems([])
       setOldestMessageId(null)
       fetchChatHistory(roomId, null)
@@ -132,6 +133,7 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatItems])
 
+  // ===================== Fetch more when message is short =====================
   useEffect(() => {
     if (!chatBoxRef.current) return
 

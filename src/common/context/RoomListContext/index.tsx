@@ -30,7 +30,7 @@ const RoomListProvider = ({ children }: PropsWithChildren<unknown>) => {
   const { socket } = useSocket()
 
   // ============ Change tab ============
-  const [type, setType] = useState<RoomListType>(RoomListType.USER)
+  const [type, setType] = useState<RoomListType>(RoomListType.RECENT)
   const handleTypeChange = useCallback(
     (newType: RoomListType) => {
       if (type !== newType) {
@@ -41,7 +41,7 @@ const RoomListProvider = ({ children }: PropsWithChildren<unknown>) => {
     [type],
   )
 
-  // ============ Fetch when tab and query change ============
+  // ============ Fetch when tab change ============
   const refetch = useCallback(async () => {
     setRooms(await getRooms(type, user!.userId))
   }, [type, user])
@@ -123,7 +123,10 @@ const RoomListProvider = ({ children }: PropsWithChildren<unknown>) => {
   )
 
   const filteredRooms = useMemo(
-    () => rooms.filter((room) => room.name.includes(query)),
+    () =>
+      rooms.filter((room) =>
+        room.name.toLowerCase().includes(query.toLocaleLowerCase()),
+      ),
     [query, rooms],
   )
 
