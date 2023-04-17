@@ -73,10 +73,10 @@ const ChatProvider = ({ children }: PropsWithChildren<unknown>) => {
   }, [fetchChatHistory, isFetching, isLastPage, oldestMessageId, roomId])
 
   useEffect(() => {
+    setLastPage(false)
+    setChatItems([])
+    setOldestMessageId(null)
     if (roomId) {
-      setLastPage(false)
-      setChatItems([])
-      setOldestMessageId(null)
       fetchChatHistory(roomId, null)
       setIsAtBottom(true)
     }

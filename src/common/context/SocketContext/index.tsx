@@ -35,7 +35,7 @@ const SocketProvider = ({ children }: PropsWithChildren<unknown>) => {
         },
       })
     } else {
-      socket = io(API_BASE_URL, {
+      socket = io(import.meta.env.VITE_PROXY_BASE_URL, {
         withCredentials: true,
         transports: ['websocket'],
         extraHeaders: {
