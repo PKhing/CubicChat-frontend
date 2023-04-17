@@ -23,6 +23,7 @@ const LoginPage = () => {
             <TextField
               label={'Email'}
               placeholder="Email"
+              type="email"
               {...field}
               helperText={formProps.fieldState.error?.message}
             />
