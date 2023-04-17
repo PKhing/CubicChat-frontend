@@ -30,16 +30,17 @@ const SocketProvider = ({ children }: PropsWithChildren<unknown>) => {
     if (import.meta.env.VITE_ENABLE_PROXY === 'true') {
       socket = io({
         path: API_BASE_URL + '/socket.io',
-        extraHeaders: {
-          authorization: `Bearer ${token}`,
+        auth: {
+          token: `Bearer ${token}`,
         },
       })
     } else {
+      // import.meta.env.VITE_PROXY_BASE_URL
       socket = io('wss://cubicchat-api.pkhing.dev:3000/', {
         withCredentials: true,
         transports: ['websocket'],
-        extraHeaders: {
-          authorization: `Bearer ${token}`,
+        auth: {
+          token: `Bearer ${token}`,
         },
       })
     }
