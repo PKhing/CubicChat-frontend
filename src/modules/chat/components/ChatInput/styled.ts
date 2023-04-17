@@ -28,7 +28,7 @@ export const StyledTextArea = styled('textarea', {
   flexGrow: 1,
 
   '@md': {
-    fontSize: '$14',
+    fontSize: '$16',
   },
 
   '&:focus': {

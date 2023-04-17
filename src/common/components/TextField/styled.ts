@@ -18,7 +18,7 @@ export const StyledTextField = styled('input', {
   padding: '5px 10px',
 
   '@md': {
-    fontSize: '$14',
+    fontSize: '$16',
   },
 
   '&:focus': {
