@@ -7,3 +7,7 @@ export interface GetUserDto {
 export interface GetUsersDto {
   users: GetUserDto[]
 }
+
+export interface LoginDto {
+  jwtToken: string
+}

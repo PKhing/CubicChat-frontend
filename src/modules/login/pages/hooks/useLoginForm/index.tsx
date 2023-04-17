@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useUser } from 'common/context/UserContext'
+import { LoginDto } from 'common/types/dtos/user.types'
 import { apiClient } from 'common/utils/api/axiosInstance'
 import { FormEventHandler, useCallback } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -37,7 +38,9 @@ const useLoginForm = () => {
   const handleSuccess: SubmitHandler<ILoginSchemaType> = useCallback(
     async (data) => {
       try {
-        await apiClient.post('auth/login', data)
+        const res = await apiClient.post<LoginDto>('auth/login', data)
+        localStorage.setItem('authToken', res.data.jwtToken)
+
         await refetch()
         navigate('/')
       } catch (err) {

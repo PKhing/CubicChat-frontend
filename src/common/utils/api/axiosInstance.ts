@@ -10,3 +10,11 @@ export const apiClient = axios.create({
   timeout: 10000,
   withCredentials: true,
 })
+
+apiClient.interceptors.request.use((config) => {
+  const token = window.localStorage.getItem('authToken')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
