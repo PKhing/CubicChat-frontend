@@ -9,7 +9,9 @@ export const PageContainer = styled('div', {
   height: '100dvh',
   boxSizing: 'border-box',
   borderRight: '1px solid $primary600',
-  maxWidth: '380px',
+  maxWidth: '360px',
+  width: '386px',
+  flexShrink: 0,
   '@md': {
     borderRight: 'none',
     maxWidth: '100%',
