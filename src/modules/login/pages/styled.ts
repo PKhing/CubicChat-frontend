@@ -19,7 +19,7 @@ export const FormContainer = styled('form', {
   display: 'flex',
   width: '20vw',
   flexDirection: 'column',
-  border: '1px solid #77DB9B',
+  border: '1px solid $primary500',
   height: 'fit-content',
   padding: '1rem',
   '@xl': {

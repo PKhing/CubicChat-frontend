@@ -6,12 +6,14 @@ import withNotLoginGuard from 'common/hoc/withNotLoginGuard'
 import React from 'react'
 import { Controller } from 'react-hook-form'
 import { Link } from 'react-router-dom'
+import { useSnackbar } from 'react-simple-snackbar'
 
 import useLoginForm from './hooks/useLoginForm'
 import { FormContainer, ImageContainer, PageContainer } from './styled'
 
 const LoginPage = () => {
-  const { handleClickSubmit, control } = useLoginForm()
+  const { handleClickSubmit, control, options } = useLoginForm()
+  const [openForgetPasswordSnackbar] = useSnackbar(options)
 
   return (
     <PageContainer>
@@ -53,9 +55,12 @@ const LoginPage = () => {
           control={control}
         />
         <Typography
+          onClick={() => {
+            openForgetPasswordSnackbar('Sorry, but we do as well.')
+          }}
           variant="body1"
           color="primary500"
-          style={{ marginBottom: '1.75rem' }}
+          style={{ marginBottom: '1.75rem', cursor: 'pointer' }}
         >
           Forget your password ?
         </Typography>

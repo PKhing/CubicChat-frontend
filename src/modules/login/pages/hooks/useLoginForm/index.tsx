@@ -56,6 +56,7 @@ const useLoginForm = () => {
   return {
     handleClickSubmit,
     control,
+    options,
   }
 }
 
