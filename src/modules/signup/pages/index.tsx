@@ -2,6 +2,7 @@ import cube from 'assets/cube.png'
 import Button from 'common/components/Button'
 import TextField from 'common/components/TextField'
 import Typography from 'common/components/Typography'
+import withNotLoginGuard from 'common/hoc/withNotLoginGuard'
 import React from 'react'
 import { Controller } from 'react-hook-form'
 import { Link } from 'react-router-dom'
@@ -14,7 +15,7 @@ const SignupPage = () => {
 
   return (
     <PageContainer>
-      <ImageContainer src={cube}/>
+      <ImageContainer src={cube} />
       <FormContainer onSubmit={handleClickSubmit}>
         <Controller
           render={({ field, ...formProps }) => (
@@ -23,6 +24,10 @@ const SignupPage = () => {
               placeholder="Nickname"
               {...field}
               helperText={formProps.fieldState.error?.message}
+              css={{
+                '-webkit-text-fill-color': '#D6F4E1',
+                '-webkit-box-shadow': '0 0 0px 1000px #30583E inset',
+              }}
             />
           )}
           name="nickname"
@@ -35,6 +40,10 @@ const SignupPage = () => {
               placeholder="Email"
               {...field}
               helperText={formProps.fieldState.error?.message}
+              css={{
+                '-webkit-text-fill-color': '#D6F4E1',
+                '-webkit-box-shadow': '0 0 0px 1000px #30583E inset',
+              }}
             />
           )}
           name="email"
@@ -43,11 +52,16 @@ const SignupPage = () => {
         <Controller
           render={({ field, ...formProps }) => (
             <TextField
-              type="password"
               label={'Password'}
               placeholder="Password"
               {...field}
               helperText={formProps.fieldState.error?.message}
+              css={{
+                '-webkit-text-security': 'square',
+                'text-security': 'square',
+                '-webkit-text-fill-color': '#D6F4E1',
+                '-webkit-box-shadow': '0 0 0px 1000px #30583E inset',
+              }}
             />
           )}
           name="password"
@@ -56,11 +70,16 @@ const SignupPage = () => {
         <Controller
           render={({ field, ...formProps }) => (
             <TextField
-              type="password"
               label={'Confirm Password'}
               placeholder="Confirm Password"
               {...field}
               helperText={formProps.fieldState.error?.message}
+              css={{
+                '-webkit-text-security': 'square',
+                'text-security': 'square',
+                '-webkit-text-fill-color': '#D6F4E1',
+                '-webkit-box-shadow': '0 0 0px 1000px #30583E inset',
+              }}
             />
           )}
           name="confirmPassword"
@@ -86,4 +105,4 @@ const SignupPage = () => {
   )
 }
 
-export default SignupPage
+export default withNotLoginGuard(SignupPage)

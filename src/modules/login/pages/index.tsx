@@ -2,6 +2,7 @@ import cube from 'assets/cube.png'
 import Button from 'common/components/Button'
 import TextField from 'common/components/TextField'
 import Typography from 'common/components/Typography'
+import withNotLoginGuard from 'common/hoc/withNotLoginGuard'
 import React from 'react'
 import { Controller } from 'react-hook-form'
 import { Link } from 'react-router-dom'
@@ -24,6 +25,10 @@ const LoginPage = () => {
               type="email"
               {...field}
               helperText={formProps.fieldState.error?.message}
+              css={{
+                '-webkit-text-fill-color': '#D6F4E1',
+                '-webkit-box-shadow': '0 0 0px 1000px #30583E inset',
+              }}
             />
           )}
           name="email"
@@ -39,6 +44,8 @@ const LoginPage = () => {
               css={{
                 '-webkit-text-security': 'square',
                 'text-security': 'square',
+                '-webkit-text-fill-color': '#D6F4E1',
+                '-webkit-box-shadow': '0 0 0px 1000px #30583E inset',
               }}
             />
           )}
@@ -72,4 +79,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export default withNotLoginGuard(LoginPage)
