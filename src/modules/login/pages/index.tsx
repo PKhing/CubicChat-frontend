@@ -34,11 +34,14 @@ const LoginPage = () => {
         <Controller
           render={({ field, ...formProps }) => (
             <TextField
-              type="password"
               label={'Password'}
               placeholder="Password"
               {...field}
               helperText={formProps.fieldState.error?.message}
+              css={{
+                '-webkit-text-security': 'square',
+                'text-security': 'square',
+              }}
             />
           )}
           name="password"
