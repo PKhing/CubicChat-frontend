@@ -32,4 +32,8 @@ export const StyledTextField = styled('input', {
   '&:-ms-input-placeholder': {
     color: '$primary600',
   },
+  '&:-webkit-autofill': {
+    '-webkit-text-fill-color': '#D6F4E1',
+    '-webkit-box-shadow': '0 0 0px 1000px #30583E inset',
+  },
 })
