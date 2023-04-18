@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { apiClient } from 'common/utils/api/axiosInstance'
 import { FormEventHandler, useCallback } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { SnackbarOptions, useSnackbar } from 'react-simple-snackbar'
 
 import { ISignupSchemaType, SignupSchema } from './schema'
@@ -47,6 +48,7 @@ const useSignupForm = () => {
   const [openSuccessSnackbar] = useSnackbar(successOptions)
   const [openErrorSnackbar] = useSnackbar(errorOptions)
 
+  const navigate = useNavigate()
   const handleSuccess: SubmitHandler<ISignupSchemaType> = useCallback(
     async (data) => {
       try {
@@ -56,11 +58,12 @@ const useSignupForm = () => {
           username: data.nickname,
         })
         openSuccessSnackbar('Register success!')
+        navigate('/login')
       } catch (err) {
         openErrorSnackbar('This email has already been used')
       }
     },
-    [openErrorSnackbar, openSuccessSnackbar],
+    [openErrorSnackbar, openSuccessSnackbar, navigate],
   )
 
   const handleClickSubmit: FormEventHandler<HTMLFormElement> =

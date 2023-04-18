@@ -2,21 +2,19 @@ import cube from 'assets/cube.png'
 import Button from 'common/components/Button'
 import TextField from 'common/components/TextField'
 import Typography from 'common/components/Typography'
-import useResponsive from 'common/hooks/useResponsive'
 import React from 'react'
 import { Controller } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
 import useSignupForm from './hooks/useSignupForm'
-import { FormContainer, PageContainer } from './styled'
+import { FormContainer, ImageContainer, PageContainer } from './styled'
 
 const SignupPage = () => {
   const { handleClickSubmit, control } = useSignupForm()
-  const { isMobile } = useResponsive()
 
   return (
     <PageContainer>
-      <img src={cube} style={{ width: isMobile ? '80%' : '50%' }} />
+      <ImageContainer src={cube}/>
       <FormContainer onSubmit={handleClickSubmit}>
         <Controller
           render={({ field, ...formProps }) => (

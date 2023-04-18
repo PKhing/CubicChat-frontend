@@ -6,7 +6,7 @@ export const PageContainer = styled('div', {
   justifyContent: 'center',
   alignItems: 'center',
   position: 'absolute',
-  gap: '7rem',
+  gap: '6rem',
 
   '@lg': {
     flexDirection: 'column',
@@ -22,7 +22,16 @@ export const FormContainer = styled('form', {
   border: '1px solid #77DB9B',
   height: 'fit-content',
   padding: '1rem',
+  '@xl': {
+    width: '22vw',
+  },
+  '@lg': {
+    width: '80%',
+  },
+})
 
+export const ImageContainer = styled('img', {
+  width: '45%',
   '@lg': {
     width: '80%',
   },
