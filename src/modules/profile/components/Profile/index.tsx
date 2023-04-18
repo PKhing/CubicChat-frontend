@@ -20,7 +20,13 @@ const Profile = () => {
       <ProfileImage src={profileImage} name={username} />
       <Typography
         variant="h4"
-        css={{ padding: '0 14px', flexGrow: 1, textAlign: 'left' }}
+        css={{
+          padding: '0 14px',
+          flexGrow: 1,
+          textAlign: 'left',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
       >
         {username}
       </Typography>

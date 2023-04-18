@@ -27,9 +27,17 @@ const ChatItem = (props: IChatItem) => {
       />
       <MessagesContainer>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Typography color="primary100">{senderName}</Typography>
           <Typography
-            css={{ marginLeft: '10px', marginTop: '5px' }}
+            color="primary100"
+            css={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {senderName}
+          </Typography>
+          <Typography
+            css={{ marginLeft: '10px', marginTop: '5px', flexShrink: 0 }}
             variant="caption"
             color="gray300"
           >
@@ -43,7 +51,9 @@ const ChatItem = (props: IChatItem) => {
             return <Sticker key={messageId} src={content} />
           return (
             <MessageContainer key={messageId} isOwner={isOwner}>
-              <Typography css={{ whiteSpace: 'pre-line' }}>
+              <Typography
+                css={{ whiteSpace: 'pre-line', wordBreak: 'break-word' }}
+              >
                 {content}
               </Typography>
             </MessageContainer>

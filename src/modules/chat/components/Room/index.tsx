@@ -18,7 +18,15 @@ const Room = ({ chatRoom, onClick, currentTab }: RoomProps) => {
       onClick={isRecent ? () => onClick(id) : undefined}
     >
       <ProfileImage name={name} src={imageUrl} />
-      <Typography variant="h5" css={{ flexGrow: 1, textAlign: 'left' }}>
+      <Typography
+        variant="h5"
+        css={{
+          flexGrow: 1,
+          textAlign: 'left',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
+      >
         {name}
       </Typography>
       {!isRecent && (
